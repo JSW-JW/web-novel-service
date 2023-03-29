@@ -1,0 +1,15 @@
+package com.example.webnovelservice;
+
+import com.example.webnovelservice.config.AppProperties;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+
+@SpringBootApplication
+@EnableConfigurationProperties(AppProperties.class)
+public class MainApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(MainApplication.class, args);
+	}
+}
