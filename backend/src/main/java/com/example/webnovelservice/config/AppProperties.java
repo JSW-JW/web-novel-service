@@ -1,7 +1,12 @@
 package com.example.webnovelservice.config;
 
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
+import jakarta.annotation.PostConstruct;
+
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+import java.security.Key;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,15 +16,16 @@ public class AppProperties {
     private final OAuth2 oauth2 = new OAuth2();
 
     public static class Auth {
-        private String tokenSecret;
+        private Key secretKey;
         private long tokenExpirationMsec;
 
-        public String getTokenSecret() {
-            return tokenSecret;
+        public Key getTokenSecret() {
+            return secretKey;
         }
 
-        public void setTokenSecret(String tokenSecret) {
-            this.tokenSecret = tokenSecret;
+        @PostConstruct
+        public void setTokenSecret() {
+            this.secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
         }
 
         public long getTokenExpirationMsec() {
