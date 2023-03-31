@@ -19,7 +19,7 @@ public class AppProperties {
         private Key secretKey;
         private long tokenExpirationMsec;
 
-        public Key getTokenSecret() {
+        public Key getSecretKey() {
             return secretKey;
         }
 

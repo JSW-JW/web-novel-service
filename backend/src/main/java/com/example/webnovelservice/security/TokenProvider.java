@@ -32,13 +32,13 @@ public class TokenProvider {
 			.setSubject(Long.toString(userPrincipal.getId()))
 			.setIssuedAt(new Date())
 			.setExpiration(expiryDate)
-			.signWith(appProperties.getAuth().getTokenSecret())
+			.signWith(appProperties.getAuth().getSecretKey())
 			.compact();
 	}
 
 	public Long getUserIdFromToken(String token) {
 		Claims claims = Jwts.parserBuilder()
-			.setSigningKey(appProperties.getAuth().getTokenSecret())
+			.setSigningKey(appProperties.getAuth().getSecretKey())
 			.build()
 			.parseClaimsJws(token)
 			.getBody();
@@ -49,7 +49,7 @@ public class TokenProvider {
 	public boolean validateToken(String authToken) {
 		try {
 			Jwts.parserBuilder()
-				.setSigningKey(appProperties.getAuth().getTokenSecret())
+				.setSigningKey(appProperties.getAuth().getSecretKey())
 				.build()
 				.parseClaimsJws(authToken);
 			return true;
