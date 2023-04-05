@@ -1,7 +1,7 @@
 package com.example.webnovelservice.controller;
 
 import com.example.webnovelservice.exception.ResourceNotFoundException;
-import com.example.webnovelservice.model.User;
+import com.example.webnovelservice.model.entity.user.User;
 import com.example.webnovelservice.repository.UserRepository;
 import com.example.webnovelservice.security.CurrentUser;
 import com.example.webnovelservice.security.UserPrincipal;

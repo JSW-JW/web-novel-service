@@ -3,16 +3,20 @@ logging:
     org.springframework.web: DEBUG
 
 spring:
+#    web:
+#      resources:
+#        static-locations: classpath:/static/
+
     datasource:
-        url: jdbc:mysql://localhost:3306/web_novel_service?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false
-        username: root
-        password: tmd8246!
+      url: jdbc:mysql://localhost:3306/web_novel_service?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false
+      username: root
+      password: tmd8246!
 
     jpa:
-        show-sql: true
-        hibernate:
-            ddl-auto: update
-            naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+      show-sql: true
+      hibernate:
+      ddl-auto: update
+      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
     security:
       oauth2:
         client:

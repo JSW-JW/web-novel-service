@@ -1,0 +1,3 @@
+# force gradle to rerun the task even though it is up-to-date.
+# when test code execution doesn't generate a html file from adoc file, this can be used.
+./gradlew generateDocs --info --rerun-tasks

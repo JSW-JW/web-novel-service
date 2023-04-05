@@ -2,7 +2,7 @@ package com.example.webnovelservice.controller;
 
 import com.example.webnovelservice.exception.BadRequestException;
 import com.example.webnovelservice.model.AuthProvider;
-import com.example.webnovelservice.model.User;
+import com.example.webnovelservice.model.entity.user.User;
 import com.example.webnovelservice.payload.ApiResponse;
 import com.example.webnovelservice.payload.AuthResponse;
 import com.example.webnovelservice.payload.LoginRequest;

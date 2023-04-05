@@ -1,6 +1,6 @@
 package com.example.webnovelservice.security;
 
-import com.example.webnovelservice.model.User;
+import com.example.webnovelservice.model.entity.user.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
