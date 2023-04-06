@@ -7,6 +7,7 @@ import com.example.webnovelservice.model.dto.ChapterDto;
 import com.example.webnovelservice.model.dto.NovelDto;
 import com.example.webnovelservice.model.entity.novel.Chapter;
 import com.example.webnovelservice.model.entity.novel.Novel;
+import com.example.webnovelservice.repository.ChapterRepository;
 import com.example.webnovelservice.repository.NovelRepository;
 
 import org.modelmapper.ModelMapper;
@@ -20,10 +21,12 @@ import java.util.stream.Collectors;
 public class NovelService {
 
 	private final NovelRepository novelRepository;
+	private final ChapterRepository chapterRepository;
 	private final ModelMapper modelMapper;
 
-	public NovelService(NovelRepository novelRepository, ModelMapper modelMapper) {
+	public NovelService(NovelRepository novelRepository, ChapterRepository chapterRepository, ModelMapper modelMapper) {
 		this.novelRepository = novelRepository;
+		this.chapterRepository = chapterRepository;
 		this.modelMapper = modelMapper;
 	}
 

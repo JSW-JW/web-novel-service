@@ -26,7 +26,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "users", uniqueConstraints = {
+@Table(name = "user", uniqueConstraints = {
         @UniqueConstraint(columnNames = "email")
 })
 public class User {
@@ -54,8 +54,6 @@ public class User {
     private AuthProvider provider;
 
     private String providerId;
-
-    private Long remainedTokens;
 
     @OneToMany(mappedBy = "author")
     private Set<Novel> novels;

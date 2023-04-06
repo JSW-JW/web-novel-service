@@ -5,8 +5,8 @@
 === /users
 ==== 유저 생성
 
-.request
-include::{docdir}/src/main/resources/static/docs/register-new-user/http-request.adoc[]
-
-.response
-include::{docdir}/src/main/resources/static/docs/register-new-user/http-response.adoc[]
+// .request
+// include::{docdir}/src/main/resources/static/docs/register-new-user/http-request.adoc[]
+//
+// .response
+// include::{docdir}/src/main/resources/static/docs/register-new-user/http-response.adoc[]

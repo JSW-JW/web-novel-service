@@ -1,10 +1,17 @@
 package com.example.webnovelservice.service;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 
+import com.example.webnovelservice.exception.InsufficientRemainedTokensException;
 import com.example.webnovelservice.exception.ResourceNotFoundException;
+import com.example.webnovelservice.model.entity.novel.Novel;
+import com.example.webnovelservice.model.entity.transaction.NovelTokenCounter;
 import com.example.webnovelservice.model.entity.transaction.OwnershipTokenTransaction;
 import com.example.webnovelservice.model.entity.user.User;
+import com.example.webnovelservice.repository.NovelRepository;
+import com.example.webnovelservice.repository.NovelTokenCounterRepository;
 import com.example.webnovelservice.repository.OwnershipTokenTransactionRepository;
 import com.example.webnovelservice.repository.UserRepository;
 
@@ -14,35 +21,45 @@ import jakarta.transaction.Transactional;
 public class OwnershipTokenService {
 	private final OwnershipTokenTransactionRepository ownershipTokenTransactionRepository;
 	private final UserRepository userRepository;
-	public OwnershipTokenService(OwnershipTokenTransactionRepository ownershipTokenTransactionRepository, UserRepository userRepository) {
+	private final NovelRepository novelRepository;
+	private final NovelTokenCounterRepository novelTokenCounterRepository;
+
+	public OwnershipTokenService(OwnershipTokenTransactionRepository ownershipTokenTransactionRepository,
+		UserRepository userRepository, NovelRepository novelRepository,
+		NovelTokenCounterRepository novelTokenCounterRepository) {
 		this.ownershipTokenTransactionRepository = ownershipTokenTransactionRepository;
 		this.userRepository = userRepository;
+		this.novelRepository = novelRepository;
+		this.novelTokenCounterRepository = novelTokenCounterRepository;
 	}
 
-	public void chargeOwnershipToken(Long userId, int tokens) {
-		User user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
+	public void chargeOwnershipToken(Long userId, int tokens, int price, Long novelId) {
+		User user = userRepository.findById(userId)
+			.orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
+
+		Novel novel = novelRepository.findById(novelId)
+			.orElseThrow(() -> new ResourceNotFoundException("Novel", "id", novelId));
 
 		OwnershipTokenTransaction ownershipTokenTransaction = new OwnershipTokenTransaction();
 		ownershipTokenTransaction.setUser(user);
 		ownershipTokenTransaction.setTokensPurchased(tokens);
+		ownershipTokenTransaction.setPrice(price);
 
 		ownershipTokenTransactionRepository.save(ownershipTokenTransaction);
-	}
 
-	public Long getRemainingOwnershipTokens(User user) {
-		User userWithToken = userRepository.findById(user.getId()).orElseThrow(() -> new RuntimeException("User not found"));
-		return userWithToken.getRemainedTokens();
-	}
-
-	@Transactional
-	public boolean useOwnershipToken(User user) {
-		Long remainingTokens = getRemainingOwnershipTokens(user);
-		if (remainingTokens > 0) {
-			user.setRemainedTokens(user.getRemainedTokens() - 1);
-			userRepository.save(user);
-			return true;
+		Optional<NovelTokenCounter> novelTokenCounterOptional = novelTokenCounterRepository.findByUserIdAndNovelId(
+			userId, novelId);
+		if (novelTokenCounterOptional.isPresent()) {
+			NovelTokenCounter novelTokenCounter = novelTokenCounterOptional.get();
+			novelTokenCounter.setTokenCount(novelTokenCounter.getTokenCount() + tokens);
+			novelTokenCounterRepository.save(novelTokenCounter);
+		} else {
+			NovelTokenCounter novelTokenCounter = new NovelTokenCounter();
+			novelTokenCounter.setUser(user);
+			novelTokenCounter.setNovel(novel);
+			novelTokenCounter.setTokenCount(tokens);
+			novelTokenCounterRepository.save(novelTokenCounter);
 		}
-		return false;
 	}
 
 }

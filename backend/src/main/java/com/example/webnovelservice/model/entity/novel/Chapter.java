@@ -18,17 +18,21 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name = "chapter")
+// @Table(name = "chapter")
 public class Chapter extends BaseTimeEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	// Chapter attributes (e.g. title, content)
+	private String title;
+
+	private String contents;
+
+	private Integer order; // 연재 순서 (1화, 2화 ... )
 
 	@ManyToOne
 	private Novel novel;
 
-	@OneToMany(mappedBy = "chapter")
-	private Set<Purchase> purchases;
+	// @OneToMany(mappedBy = "chapter")
+	// private Set<Purchase> purchases;
 }

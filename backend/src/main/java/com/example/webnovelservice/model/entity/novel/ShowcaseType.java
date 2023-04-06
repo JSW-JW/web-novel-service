@@ -22,12 +22,10 @@ public class ShowcaseType extends BaseTimeEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	private String listType;
-
 	private String listName;
 
 	private String listDescription;
 
-	@ManyToMany(mappedBy = "showcaseType")
+	@ManyToMany(mappedBy = "showcaseTypes")
 	private Set<Novel> novels;
 }

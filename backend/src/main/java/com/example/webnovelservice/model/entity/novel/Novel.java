@@ -31,6 +31,8 @@ public class Novel extends BaseTimeEntity {
 
 	private String title;
 
+	private Integer lastChapter;
+
 	@Lob
 	private String description;
 
