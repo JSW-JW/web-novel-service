@@ -5,6 +5,9 @@ import com.example.webnovelservice.security.oauth2.CustomOAuth2UserService;
 import com.example.webnovelservice.security.oauth2.HttpCookieOAuth2AuthorizationRequestRepository;
 import com.example.webnovelservice.security.oauth2.OAuth2AuthenticationFailureHandler;
 import com.example.webnovelservice.security.oauth2.OAuth2AuthenticationSuccessHandler;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -76,22 +79,13 @@ public class SecurityConfig implements WebMvcConfigurer {
                         "/",
                         "/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**", "/docs/**",
                         "/error",
-                        "/favicon.ico",
-                        "/**/*.png",
-                        "/**/*.gif",
-                        "/**/*.svg",
-                        "/**/*.jpg",
-                        "/**/*.html",
-                        "/**/*.css",
-                        "/**/*.js"
+                        "/favicon.ico"
                         )
-                        .permitAll()
-                    .anyRequest()
-                        .authenticated()
+                    .permitAll()
+                    .anyRequest().authenticated()
                     .and()
                         .addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .oauth2Login()
-                    .loginPage("/login-form")
                     .authorizationEndpoint()
                         .authorizationRequestRepository(cookieAuthorizationRequestRepository())
                         .and()
@@ -101,7 +95,6 @@ public class SecurityConfig implements WebMvcConfigurer {
                     .successHandler(oAuth2AuthenticationSuccessHandler)
                     .failureHandler(oAuth2AuthenticationFailureHandler);
 
-        // Add our custom Token based authentication filter
         return http.build();
     }
 }

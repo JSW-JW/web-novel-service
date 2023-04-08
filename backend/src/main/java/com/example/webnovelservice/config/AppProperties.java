@@ -16,16 +16,19 @@ public class AppProperties {
     private final OAuth2 oauth2 = new OAuth2();
 
     public static class Auth {
-        private Key secretKey;
+        private static Key secretKey;
         private long tokenExpirationMsec;
 
         public Key getSecretKey() {
             return secretKey;
         }
 
-        @PostConstruct
-        public void setTokenSecret() {
-            this.secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+        static {
+            setTokenSecret();
+        }
+
+        private static void setTokenSecret() {
+            secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
         }
 
         public long getTokenExpirationMsec() {

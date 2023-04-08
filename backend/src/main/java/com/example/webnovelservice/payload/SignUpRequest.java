@@ -3,10 +3,6 @@ package com.example.webnovelservice.payload;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
-/**
- * Created by rajeevkumarsingh on 02/08/17.
- */
-
 public class SignUpRequest {
     @NotBlank
     private String name;

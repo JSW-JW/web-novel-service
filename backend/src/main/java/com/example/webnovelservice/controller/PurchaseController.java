@@ -17,7 +17,7 @@ import com.example.webnovelservice.service.PurchaseService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/api/purchases")
+@RequestMapping("/api/v1/purchases")
 public class PurchaseController {
 
 	private final PurchaseService purchaseService;
