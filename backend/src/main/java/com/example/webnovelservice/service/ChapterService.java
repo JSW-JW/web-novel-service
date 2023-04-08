@@ -12,8 +12,11 @@ import com.example.webnovelservice.repository.ChapterRepository;
 @Service
 public class ChapterService {
 
-	@Autowired
-	private ChapterRepository chapterRepository;
+	private final ChapterRepository chapterRepository;
+
+	public ChapterService(ChapterRepository chapterRepository) {
+		this.chapterRepository = chapterRepository;
+	}
 
 	public List<Chapter> getChaptersByNovelId(Long novelId) {
 		return chapterRepository.findByNovelId(novelId);

@@ -4,7 +4,6 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.example.webnovelservice.exception.InsufficientRemainedTokensException;
 import com.example.webnovelservice.exception.ResourceNotFoundException;
 import com.example.webnovelservice.model.entity.novel.Novel;
 import com.example.webnovelservice.model.entity.transaction.NovelTokenCounter;
@@ -14,8 +13,6 @@ import com.example.webnovelservice.repository.NovelRepository;
 import com.example.webnovelservice.repository.NovelTokenCounterRepository;
 import com.example.webnovelservice.repository.OwnershipTokenTransactionRepository;
 import com.example.webnovelservice.repository.UserRepository;
-
-import jakarta.transaction.Transactional;
 
 @Service
 public class OwnershipTokenService {

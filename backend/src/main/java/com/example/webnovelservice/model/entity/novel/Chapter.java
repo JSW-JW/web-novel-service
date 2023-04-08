@@ -5,6 +5,7 @@ import java.util.Set;
 import com.example.webnovelservice.model.entity.BaseTimeEntity;
 import com.example.webnovelservice.model.entity.transaction.Purchase;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,7 +19,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-// @Table(name = "chapter")
+@Table(name = "chapter")
 public class Chapter extends BaseTimeEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,13 +27,14 @@ public class Chapter extends BaseTimeEntity {
 
 	private String title;
 
-	private String contents;
+	@Column(name = "chapter_order")
+	private Integer order;
 
-	private Integer order; // 연재 순서 (1화, 2화 ... )
+	private String contents;
 
 	@ManyToOne
 	private Novel novel;
 
-	// @OneToMany(mappedBy = "chapter")
-	// private Set<Purchase> purchases;
+	@OneToMany(mappedBy = "chapter")
+	private Set<Purchase> purchases;
 }
