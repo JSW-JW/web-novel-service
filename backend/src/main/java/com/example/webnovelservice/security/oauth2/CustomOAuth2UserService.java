@@ -1,8 +1,8 @@
 package com.example.webnovelservice.security.oauth2;
 
 import com.example.webnovelservice.exception.OAuth2AuthenticationProcessingException;
-import com.example.webnovelservice.model.AuthProvider;
-import com.example.webnovelservice.model.entity.user.User;
+import com.example.webnovelservice.model.enums.AuthProvider;
+import com.example.webnovelservice.domain.user.entity.User;
 import com.example.webnovelservice.domain.user.UserRepository;
 import com.example.webnovelservice.security.UserPrincipal;
 import com.example.webnovelservice.security.oauth2.user.OAuth2UserInfo;

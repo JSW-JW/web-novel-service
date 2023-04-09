@@ -5,13 +5,11 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.example.webnovelservice.exception.ResourceNotFoundException;
-import com.example.webnovelservice.model.entity.novel.Novel;
-import com.example.webnovelservice.model.entity.transaction.NovelTokenCounter;
-import com.example.webnovelservice.model.entity.transaction.OwnershipTokenTransaction;
-import com.example.webnovelservice.model.entity.user.User;
+import com.example.webnovelservice.domain.novel.entity.Novel;
+import com.example.webnovelservice.domain.payment.entity.NovelTokenCounter;
+import com.example.webnovelservice.domain.payment.entity.OwnershipTokenTransaction;
+import com.example.webnovelservice.domain.user.entity.User;
 import com.example.webnovelservice.domain.novel.NovelRepository;
-import com.example.webnovelservice.domain.payment.NovelTokenCounterRepository;
-import com.example.webnovelservice.domain.payment.OwnershipTokenTransactionRepository;
 import com.example.webnovelservice.domain.user.UserRepository;
 
 @Service

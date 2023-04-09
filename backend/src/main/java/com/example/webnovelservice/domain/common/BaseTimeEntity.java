@@ -1,4 +1,4 @@
-package com.example.webnovelservice.model.entity;
+package com.example.webnovelservice.domain.common;
 
 import java.time.LocalDateTime;
 

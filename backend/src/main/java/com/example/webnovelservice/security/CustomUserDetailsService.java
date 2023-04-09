@@ -2,7 +2,7 @@ package com.example.webnovelservice.security;
 
 
 import com.example.webnovelservice.exception.ResourceNotFoundException;
-import com.example.webnovelservice.model.entity.user.User;
+import com.example.webnovelservice.domain.user.entity.User;
 import com.example.webnovelservice.domain.user.UserRepository;
 
 import org.springframework.security.core.userdetails.UserDetails;

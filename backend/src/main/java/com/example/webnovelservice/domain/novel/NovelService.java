@@ -5,15 +5,12 @@ import com.example.webnovelservice.exception.ResourceNotFoundException;
 import com.example.webnovelservice.model.command.NovelCreateRequest;
 import com.example.webnovelservice.model.dto.ChapterDto;
 import com.example.webnovelservice.model.dto.NovelDto;
-import com.example.webnovelservice.model.entity.novel.Chapter;
-import com.example.webnovelservice.model.entity.novel.Novel;
-import com.example.webnovelservice.domain.novel.ChapterRepository;
-import com.example.webnovelservice.domain.novel.NovelRepository;
+import com.example.webnovelservice.domain.novel.entity.Chapter;
+import com.example.webnovelservice.domain.novel.entity.Novel;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.AbstractMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;

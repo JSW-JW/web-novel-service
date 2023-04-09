@@ -1,8 +1,8 @@
 package com.example.webnovelservice.domain.auth;
 
 import com.example.webnovelservice.exception.BadRequestException;
-import com.example.webnovelservice.model.AuthProvider;
-import com.example.webnovelservice.model.entity.user.User;
+import com.example.webnovelservice.model.enums.AuthProvider;
+import com.example.webnovelservice.domain.user.entity.User;
 import com.example.webnovelservice.payload.ApiResponse;
 import com.example.webnovelservice.payload.AuthResponse;
 import com.example.webnovelservice.payload.LoginRequest;

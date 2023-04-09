@@ -10,11 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import com.example.webnovelservice.model.command.NovelCreateRequest;
 import com.example.webnovelservice.model.dto.NovelDto;
-import com.example.webnovelservice.model.entity.novel.Novel;
 
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;

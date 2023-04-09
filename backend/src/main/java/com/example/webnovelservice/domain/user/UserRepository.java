@@ -1,6 +1,6 @@
 package com.example.webnovelservice.domain.user;
 
-import com.example.webnovelservice.model.entity.user.User;
+import com.example.webnovelservice.domain.user.entity.User;
 
 import java.util.Optional;
 

@@ -5,8 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import com.example.webnovelservice.model.entity.novel.Chapter;
-import com.example.webnovelservice.domain.novel.ChapterRepository;
+import com.example.webnovelservice.domain.novel.entity.Chapter;
 
 @Service
 public class ChapterService {

@@ -1,9 +1,8 @@
-package com.example.webnovelservice.model.entity.favorite;
+package com.example.webnovelservice.domain.user.entity;
 
 
-import com.example.webnovelservice.model.entity.BaseTimeEntity;
-import com.example.webnovelservice.model.entity.novel.Novel;
-import com.example.webnovelservice.model.entity.user.User;
+import com.example.webnovelservice.domain.common.BaseTimeEntity;
+import com.example.webnovelservice.domain.novel.entity.Novel;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

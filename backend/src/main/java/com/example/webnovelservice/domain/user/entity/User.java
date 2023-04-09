@@ -1,11 +1,10 @@
-package com.example.webnovelservice.model.entity.user;
+package com.example.webnovelservice.domain.user.entity;
 import java.util.Set;
 
-import com.example.webnovelservice.model.AuthProvider;
-import com.example.webnovelservice.model.entity.favorite.Favorite;
-import com.example.webnovelservice.model.entity.novel.Novel;
-import com.example.webnovelservice.model.entity.transaction.OwnershipTokenTransaction;
-import com.example.webnovelservice.model.entity.transaction.Purchase;
+import com.example.webnovelservice.domain.payment.entity.Purchase;
+import com.example.webnovelservice.model.enums.AuthProvider;
+import com.example.webnovelservice.domain.novel.entity.Novel;
+import com.example.webnovelservice.domain.payment.entity.OwnershipTokenTransaction;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;

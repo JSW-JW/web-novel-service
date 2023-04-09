@@ -1,9 +1,9 @@
-package com.example.webnovelservice.model.entity.novel;
+package com.example.webnovelservice.domain.novel.entity;
 
 import java.util.Set;
 
-import com.example.webnovelservice.model.entity.BaseTimeEntity;
-import com.example.webnovelservice.model.entity.transaction.Purchase;
+import com.example.webnovelservice.domain.common.BaseTimeEntity;
+import com.example.webnovelservice.domain.payment.entity.Purchase;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

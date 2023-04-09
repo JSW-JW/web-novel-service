@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.example.webnovelservice.model.entity.novel.Novel;
+import com.example.webnovelservice.domain.novel.entity.Novel;
 
 @Repository
 public interface NovelRepository extends JpaRepository<Novel, Long> {

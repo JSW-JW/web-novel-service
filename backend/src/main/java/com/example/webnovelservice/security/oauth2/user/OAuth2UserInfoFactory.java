@@ -1,7 +1,7 @@
 package com.example.webnovelservice.security.oauth2.user;
 
 import com.example.webnovelservice.exception.OAuth2AuthenticationProcessingException;
-import com.example.webnovelservice.model.AuthProvider;
+import com.example.webnovelservice.model.enums.AuthProvider;
 
 import java.util.Map;
 

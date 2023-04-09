@@ -1,8 +1,8 @@
-package com.example.webnovelservice.model.entity.transaction;
+package com.example.webnovelservice.domain.payment.entity;
 
 
-import com.example.webnovelservice.model.entity.BaseTimeEntity;
-import com.example.webnovelservice.model.entity.user.User;
+import com.example.webnovelservice.domain.common.BaseTimeEntity;
+import com.example.webnovelservice.domain.user.entity.User;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,7 +10,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
