@@ -3,8 +3,8 @@ package com.example.webnovelservice.security;
 
 import com.example.webnovelservice.exception.ResourceNotFoundException;
 import com.example.webnovelservice.model.entity.user.User;
-import com.example.webnovelservice.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.webnovelservice.domain.user.UserRepository;
+
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

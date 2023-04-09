@@ -3,7 +3,7 @@ package com.example.webnovelservice.security.oauth2;
 import com.example.webnovelservice.MainApplication;
 import com.example.webnovelservice.model.AuthProvider;
 import com.example.webnovelservice.model.entity.user.User;
-import com.example.webnovelservice.repository.UserRepository;
+import com.example.webnovelservice.domain.user.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

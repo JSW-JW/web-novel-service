@@ -1,17 +1,18 @@
 package com.example.webnovelservice.model.dto;
 
-import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
 
-import lombok.Builder;
-
-@Builder
+@Getter
+@Setter
 public class NovelDto {
+	public NovelDto() {}
 	private Long id;
 	private String title;
-	private String description;
 	private String genre;
-	private Long authorId;
-	private List<Long> chapterIds;
+	private String description;
+
+	private String showcaseType;
 }
 
 

@@ -82,7 +82,8 @@ public class SecurityConfig implements WebMvcConfigurer {
                         "/",
                         "/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**", "/docs/**",
                         "/error",
-                        "/favicon.ico"
+                        "/favicon.ico",
+                        "/api/v1/novels/home-best"
                         )
                     .permitAll()
                     .anyRequest().authenticated()
