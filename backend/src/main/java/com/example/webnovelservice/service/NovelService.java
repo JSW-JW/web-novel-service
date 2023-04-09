@@ -30,6 +30,18 @@ public class NovelService {
 		this.modelMapper = modelMapper;
 	}
 
+	public List<NovelDto> getNovelsByShowcaseTypes(List<Long> showcaseTypeIds) {
+		List<Novel> novels;
+		if (showcaseTypeIds != null && !showcaseTypeIds.isEmpty()) {
+			novels = novelRepository.findByShowcaseTypeIds(showcaseTypeIds);
+		} else {
+			novels = novelRepository.findAllInShowcase();
+		}
+		return novels.stream()
+			.map(novel -> modelMapper.map(novel, NovelDto.class))
+			.collect(Collectors.toList());
+	}
+
 	public List<NovelDto> getAllNovels() {
 		List<Novel> novels = novelRepository.findAll();
 		return novels.stream()
