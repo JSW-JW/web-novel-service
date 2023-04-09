@@ -5,7 +5,6 @@ import com.example.webnovelservice.model.entity.user.User;
 import com.example.webnovelservice.repository.UserRepository;
 import com.example.webnovelservice.security.CurrentUser;
 import com.example.webnovelservice.security.UserPrincipal;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,8 +17,11 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 @RequestMapping("/api/v1")
 public class UserController {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    public UserController(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Operation(summary = "user info", description = "get information of current user")
     @SecurityRequirement(name = "Bearer Authentication")

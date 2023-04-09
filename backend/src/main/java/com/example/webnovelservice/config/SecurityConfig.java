@@ -6,9 +6,7 @@ import com.example.webnovelservice.security.oauth2.HttpCookieOAuth2Authorization
 import com.example.webnovelservice.security.oauth2.OAuth2AuthenticationFailureHandler;
 import com.example.webnovelservice.security.oauth2.OAuth2AuthenticationSuccessHandler;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -30,14 +28,19 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
         jsr250Enabled = true
 )
 public class SecurityConfig implements WebMvcConfigurer {
-    @Autowired
-    private CustomOAuth2UserService customOAuth2UserService;
+    private final CustomOAuth2UserService customOAuth2UserService;
 
-    @Autowired
-    private OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
+    private final OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
 
-    @Autowired
-    private OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler;
+    private final OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler;
+
+    public SecurityConfig(CustomOAuth2UserService customOAuth2UserService,
+        OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler,
+        OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler) {
+        this.customOAuth2UserService = customOAuth2UserService;
+        this.oAuth2AuthenticationSuccessHandler = oAuth2AuthenticationSuccessHandler;
+        this.oAuth2AuthenticationFailureHandler = oAuth2AuthenticationFailureHandler;
+    }
 
     @Bean
     public TokenAuthenticationFilter tokenAuthenticationFilter() {
