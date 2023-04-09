@@ -13,6 +13,7 @@ import java.util.Map;
 
 import com.example.webnovelservice.model.command.NovelCreateRequest;
 import com.example.webnovelservice.model.dto.NovelDto;
+import com.example.webnovelservice.response.SuccessResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
@@ -44,8 +45,8 @@ public class NovelController {
 			showcaseTypeIds is null: all novels in showcase
 			showcaseTypeIds is not null: novels matching with the showcaseTypeIds""")
 	@PostMapping("/home-best")
-	public ResponseEntity<Map<String, List<NovelDto>>> getBestNovels(@RequestBody List<Long> showcaseTypeIds) {
+	public SuccessResponse<Map<String, List<NovelDto>>> getBestNovels(@RequestBody List<Long> showcaseTypeIds) {
 		Map<String, List<NovelDto>> novels = novelService.getNovelsByShowcaseTypes(showcaseTypeIds);
-		return ResponseEntity.ok(novels);
+		return new SuccessResponse<>(novels);
 	}
 }

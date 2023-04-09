@@ -1,4 +1,4 @@
-package com.example.webnovelservice.payload;
+package com.example.webnovelservice.model.dto;
 
 public class ApiResponse {
     private boolean success;
