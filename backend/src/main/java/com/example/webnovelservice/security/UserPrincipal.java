@@ -1,6 +1,8 @@
 package com.example.webnovelservice.security;
 
 import com.example.webnovelservice.domain.user.entity.User;
+import com.example.webnovelservice.model.enums.UserRole;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -27,7 +29,7 @@ public class UserPrincipal implements OAuth2User, UserDetails {
 
     public static UserPrincipal create(User user) {
         List<GrantedAuthority> authorities = Collections.
-                singletonList(new SimpleGrantedAuthority("ROLE_USER"));
+                singletonList(new SimpleGrantedAuthority(UserRole.valueOf("USER").name()));
 
         return new UserPrincipal(
                 user.getId(),

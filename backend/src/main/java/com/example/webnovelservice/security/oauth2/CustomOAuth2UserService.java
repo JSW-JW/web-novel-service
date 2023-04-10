@@ -42,11 +42,13 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     }
 
     private OAuth2User processOAuth2User(OAuth2UserRequest oAuth2UserRequest, OAuth2User oAuth2User) {
+        // OAuth2User contains user information after a successful authentication
         OAuth2UserInfo oAuth2UserInfo = OAuth2UserInfoFactory.getOAuth2UserInfo(oAuth2UserRequest.getClientRegistration().getRegistrationId(), oAuth2User.getAttributes());
         if(!StringUtils.hasLength(oAuth2UserInfo.getEmail())) {
             throw new OAuth2AuthenticationProcessingException("Email not found from OAuth2 provider");
         }
 
+        // update or register user information on our database.
         Optional<User> userOptional = userRepository.findByEmail(oAuth2UserInfo.getEmail());
         User user;
         if(userOptional.isPresent()) {
@@ -61,6 +63,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             user = registerNewUser(oAuth2UserRequest, oAuth2UserInfo);
         }
 
+        // OAuth2User 를 구현한 UserPrincipal 객체를 반환
         return UserPrincipal.create(user, oAuth2User.getAttributes());
     }
 
