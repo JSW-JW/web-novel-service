@@ -14,6 +14,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
@@ -37,4 +38,5 @@ public class Chapter extends BaseTimeEntity {
 
 	@OneToMany(mappedBy = "chapter")
 	private Set<Purchase> purchases;
+
 }

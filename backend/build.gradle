@@ -7,10 +7,19 @@ plugins {
     id 'org.springframework.boot' version '3.0.5'
     id 'io.spring.dependency-management' version '1.1.0'
     id 'org.asciidoctor.jvm.convert' version '3.3.2'
+    id 'groovy'
 }
 
 repositories {
     mavenCentral()
+    maven { url 'https://jitpack.io' }
+}
+
+sourceSets {
+    test {
+        groovy.srcDirs = ['src/test/groovy']
+        java.srcDirs = []
+    }
 }
 
 dependencies {
@@ -23,67 +32,36 @@ dependencies {
     implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
     implementation 'org.modelmapper:modelmapper:2.4.3'
 
+    implementation 'javax.xml.bind:jaxb-api:2.3.1'
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0'
+    testImplementation 'org.spockframework:spock-core'
 
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 
 
-    runtimeOnly 'com.mysql:mysql-connector-j'
+    runtimeOnly 'mysql:mysql-connector-java:8.0.28'
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.2'
     runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.2'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
 
-    testImplementation('io.rest-assured:rest-assured:4.5.0') {
-        exclude group: 'org.codehaus.groovy', module: 'groovy'
-        exclude group: 'org.codehaus.groovy', module: 'groovy-xml'
-        exclude group: 'org.apache.groovy', module: 'groovy'
-        exclude group: 'org.apache.groovy', module: 'groovy-xml'
-    }
-    testImplementation('io.rest-assured:spring-mock-mvc:4.5.0') {
-        exclude group: 'org.codehaus.groovy', module: 'groovy'
-        exclude group: 'org.codehaus.groovy', module: 'groovy-xml'
-        exclude group: 'org.apache.groovy', module: 'groovy'
-        exclude group: 'org.apache.groovy', module: 'groovy-xml'
-    }
-
-    testImplementation 'org.apache.groovy:groovy-all:4.0.10'
     testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
     testImplementation 'org.junit.jupiter:junit-jupiter:5.8.2'
 
+    testImplementation 'org.spockframework:spock-spring:2.3-groovy-3.0'
+    testImplementation 'org.spockframework:spock-core:2.3-groovy-3.0'
+
+    testImplementation ('io.rest-assured:rest-assured:5.3.0') {
+        exclude group: 'org.apache.groovy', module: 'groovy'
+    }
+    testImplementation 'org.codehaus.groovy:groovy:3.0.14'
+    testImplementation ('io.rest-assured:json-path:5.3.0') {
+        exclude group: 'org.apache.groovy', module: 'groovy'
+    }
+
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 }
-
-
-tasks.register('generateDocs', org.asciidoctor.gradle.jvm.AsciidoctorTask) {
-    group 'Documentation'
-    description 'Generates HTML documentation from the Asciidoctor files'
-    dependsOn 'test'
-
-    sourceDir file('target/snippets')
-    sources {
-        include 'index.adoc'
-    }
-    resources {
-        from('target/snippets') {
-            include '**'
-        }
-    }
-    outputDir file('src/main/resources/static/docs')
-    attributes(
-            'doctype': 'book',
-            'source-highlighter': 'rouge',
-            'backend': 'html5',
-            'allow-uri-read': true,
-            'safe': 'unsafe',
-            'icons': 'font',
-            'idprefix': '',
-            'idseparator': '-'
-    )
-}
-
-assemble.dependsOn generateDocs
 
 
 group = 'com.example'

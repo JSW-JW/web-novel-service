@@ -2,10 +2,8 @@ package com.example.webnovelservice.domain.novel;
 
 
 import com.example.webnovelservice.exception.ResourceNotFoundException;
-import com.example.webnovelservice.model.command.NovelCreateRequest;
-import com.example.webnovelservice.model.dto.ChapterDto;
+import com.example.webnovelservice.model.command.RegisterNovelRequest;
 import com.example.webnovelservice.model.dto.NovelDto;
-import com.example.webnovelservice.domain.novel.entity.Chapter;
 import com.example.webnovelservice.domain.novel.entity.Novel;
 
 import org.modelmapper.ModelMapper;
@@ -13,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -55,7 +52,7 @@ public class NovelService {
 			.collect(Collectors.toList());
 	}
 
-	public NovelDto createNovel(NovelCreateRequest request) {
+	public NovelDto registerNovel(RegisterNovelRequest request) {
 		Novel novel = modelMapper.map(request, Novel.class);
 		Novel createdNovel = novelRepository.save(novel);
 		return modelMapper.map(createdNovel, NovelDto.class);
@@ -65,27 +62,5 @@ public class NovelService {
 		Novel novel = novelRepository.findById(id)
 			.orElseThrow(() -> new ResourceNotFoundException("Novel", "novel id", id));
 		return modelMapper.map(novel, NovelDto.class);
-	}
-
-	public ChapterDto createChapterForNovel(Long novelId, ChapterDto chapterDTO) {
-		Novel novel = novelRepository.findById(novelId)
-			.orElseThrow(() -> new ResourceNotFoundException("Novel", "novel id", novelId));
-
-		Chapter chapter = modelMapper.map(chapterDTO, Chapter.class);
-		chapter.setNovel(novel);
-
-		Chapter createdChapter = chapterRepository.save(chapter);
-
-		return modelMapper.map(createdChapter, ChapterDto.class);
-	}
-
-	public List<ChapterDto> getChaptersForNovel(Long novelId) {
-		Novel novel = novelRepository.findById(novelId)
-			.orElseThrow(() -> new ResourceNotFoundException("Novel", "novel id", novelId));
-
-		Set<Chapter> chapters = novel.getChapters();
-		return chapters.stream()
-			.map(chapter -> modelMapper.map(chapter, ChapterDto.class))
-			.collect(Collectors.toList());
 	}
 }

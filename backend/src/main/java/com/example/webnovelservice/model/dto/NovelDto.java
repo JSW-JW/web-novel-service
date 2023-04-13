@@ -13,6 +13,14 @@ public class NovelDto {
 	private String description;
 
 	private String showcaseType;
+
+	public NovelDto(Long id, String title, String genre, String description, String showcaseType) {
+		this.id = id;
+		this.title = title;
+		this.genre = genre;
+		this.description = description;
+		this.showcaseType = showcaseType;
+	}
 }
 
 

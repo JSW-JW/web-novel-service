@@ -1,7 +1,6 @@
 package com.example.webnovelservice.domain.novel;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,17 +10,17 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.Map;
 
-import com.example.webnovelservice.model.command.NovelCreateRequest;
+import com.example.webnovelservice.model.command.RegisterNovelRequest;
 import com.example.webnovelservice.model.dto.NovelDto;
 import com.example.webnovelservice.response.SuccessResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v1/novels")
 public class NovelController {
-
 	private final NovelService novelService;
 
 	public NovelController(NovelService novelService) {
@@ -29,15 +28,15 @@ public class NovelController {
 	}
 
 	@PostMapping
-	public ResponseEntity<NovelDto> createNovel(@Valid @RequestBody NovelCreateRequest novelCreateRequest) {
-		NovelDto novelDto = novelService.createNovel(novelCreateRequest);
-		return ResponseEntity.status(HttpStatus.CREATED).body(novelDto);
+	public SuccessResponse<NovelDto> registerNovel(@Valid @RequestBody RegisterNovelRequest registerNovelRequest, HttpServletResponse response) {
+		NovelDto novelDto = novelService.registerNovel(registerNovelRequest);
+		return new SuccessResponse<>(novelDto);
 	}
 
 	@GetMapping
-	public ResponseEntity<List<NovelDto>> getAllNovels() {
+	public SuccessResponse<List<NovelDto>> getAllNovels() {
 		List<NovelDto> novelDtos = novelService.getAllNovels();
-		return ResponseEntity.ok(novelDtos);
+		return new SuccessResponse<>(novelDtos);
 	}
 
 	@Operation(summary = "get list of novels in showcase", description =

@@ -5,6 +5,8 @@ import com.example.webnovelservice.exception.ResourceNotFoundException;
 import com.example.webnovelservice.domain.user.entity.User;
 import com.example.webnovelservice.domain.user.UserRepository;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -15,6 +17,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class CustomUserDetailsService implements UserDetailsService {
 
     private final UserRepository userRepository;
+
+    static final Logger logger = LoggerFactory.getLogger(CustomUserDetailsService.class);
 
     public CustomUserDetailsService(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -29,6 +33,8 @@ public class CustomUserDetailsService implements UserDetailsService {
                         new UsernameNotFoundException("User not found with email : " + email)
         );
 
+        logger.info("loadUserByUsername {}" , user);
+
         return UserPrincipal.create(user);
     }
 
@@ -37,6 +43,8 @@ public class CustomUserDetailsService implements UserDetailsService {
         User user = userRepository.findById(id).orElseThrow(
             () -> new ResourceNotFoundException("User", "id", id)
         );
+
+        logger.info("loadUserById {}" , user);
 
         return UserPrincipal.create(user);
     }

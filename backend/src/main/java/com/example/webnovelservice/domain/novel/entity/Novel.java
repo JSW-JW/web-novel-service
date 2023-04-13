@@ -7,6 +7,7 @@ import com.example.webnovelservice.domain.user.entity.Favorite;
 import com.example.webnovelservice.domain.user.entity.User;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -40,16 +41,16 @@ public class Novel extends BaseTimeEntity {
 
 	private String genre;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	private User author;
 
-	@OneToMany(mappedBy = "novel")
+	@OneToMany(mappedBy = "novel", fetch = FetchType.LAZY)
 	private Set<Chapter> chapters;
 
-	@OneToMany(mappedBy = "novel")
+	@OneToMany(mappedBy = "novel", fetch = FetchType.LAZY)
 	private Set<Favorite> favorites;
 
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(
 		name = "novel_showcase_type",
 		joinColumns = @JoinColumn(name = "novel_id"),
