@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.webnovelservice.model.command.RegisterChapterRequest;
-import com.example.webnovelservice.model.dto.ChapterDto;
+import com.example.webnovelservice.model.dto.request.CreateChapterRequest;
+import com.example.webnovelservice.model.dto.response.ChapterDto;
 import com.example.webnovelservice.response.SuccessResponse;
 
 @RestController
@@ -29,8 +29,8 @@ public class ChapterController {
 	}
 
 	@PostMapping
-	public SuccessResponse<ChapterDto> registerChapterForNovel(@RequestBody RegisterChapterRequest registerChapterRequest) {
-		ChapterDto chapterDto = chapterService.registerChapterForNovel(registerChapterRequest);
+	public SuccessResponse<ChapterDto> registerChapterForNovel(@RequestBody CreateChapterRequest createChapterRequest) {
+		ChapterDto chapterDto = chapterService.registerChapterForNovel(createChapterRequest);
 		return new SuccessResponse<>(chapterDto);
 	}
 }

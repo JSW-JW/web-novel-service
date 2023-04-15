@@ -1,4 +1,4 @@
-package com.example.webnovelservice.domain.novel.common
+package com.example.webnovelservice.domain.common
 
 import com.example.webnovelservice.domain.user.UserRepository
 import com.example.webnovelservice.domain.user.entity.User

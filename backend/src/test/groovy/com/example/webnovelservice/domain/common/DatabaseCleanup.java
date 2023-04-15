@@ -1,4 +1,4 @@
-package com.example.webnovelservice.domain.novel.common;
+package com.example.webnovelservice.domain.common;
 
 import java.util.List;
 import java.util.Objects;

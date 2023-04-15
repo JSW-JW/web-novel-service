@@ -1,4 +1,4 @@
-package com.example.webnovelservice.model.command;
+package com.example.webnovelservice.model.dto.request;
 
 
 import jakarta.validation.constraints.NotBlank;
@@ -8,7 +8,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class RegisterNovelRequest
+public class CreateNovelRequest
  {
 	 @NotBlank(message = "Title is required")
 	 private String title;
@@ -18,12 +18,12 @@ public class RegisterNovelRequest
 	 private String genre;
 	 @NotNull(message = "Author ID is required")
 	 private Long authorId;
-	 public RegisterNovelRequest(String title, String description, String genre, Long authorId) {
+	 public CreateNovelRequest(String title, String description, String genre, Long authorId) {
 		 this.title = title;
 		 this.description = description;
 		 this.genre = genre;
 		 this.authorId = authorId;
 	 }
 
-	 public RegisterNovelRequest() {}
+	 public CreateNovelRequest() {}
 }

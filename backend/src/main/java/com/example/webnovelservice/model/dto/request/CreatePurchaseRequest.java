@@ -1,10 +1,10 @@
-package com.example.webnovelservice.model.command;
+package com.example.webnovelservice.model.dto.request;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 
 @Getter
-public class PurchaseRequest {
+public class CreatePurchaseRequest {
 	@NotNull
 	private Long chapterId;
 }

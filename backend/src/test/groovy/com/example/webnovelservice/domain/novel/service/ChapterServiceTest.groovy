@@ -2,8 +2,7 @@ package com.example.webnovelservice.domain.novel.service
 
 
 import com.example.webnovelservice.domain.novel.ChapterService
-import com.example.webnovelservice.domain.novel.common.DatabaseCleanup
-import com.example.webnovelservice.domain.novel.entity.Chapter
+import com.example.webnovelservice.domain.common.DatabaseCleanup
 import com.example.webnovelservice.domain.novel.steps.ChapterSteps
 import com.example.webnovelservice.exception.ResourceNotFoundException
 import org.springframework.beans.factory.annotation.Autowired

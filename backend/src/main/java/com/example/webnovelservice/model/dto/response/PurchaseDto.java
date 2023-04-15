@@ -1,4 +1,4 @@
-package com.example.webnovelservice.model.dto;
+package com.example.webnovelservice.model.dto.response;
 
 import lombok.Builder;
 

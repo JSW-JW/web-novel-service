@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.webnovelservice.exception.InsufficientRemainedTokensException;
 import com.example.webnovelservice.exception.ResourceNotFoundException;
-import com.example.webnovelservice.model.dto.PurchaseDto;
+import com.example.webnovelservice.model.dto.response.PurchaseDto;
 import com.example.webnovelservice.domain.novel.entity.Chapter;
 import com.example.webnovelservice.domain.payment.entity.NovelTokenCounter;
 import com.example.webnovelservice.domain.payment.entity.Purchase;

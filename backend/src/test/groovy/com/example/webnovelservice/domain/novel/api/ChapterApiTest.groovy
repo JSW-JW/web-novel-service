@@ -1,16 +1,13 @@
 package com.example.webnovelservice.domain.novel.api
 
-import com.example.webnovelservice.domain.novel.common.ApiTest
+import com.example.webnovelservice.domain.common.ApiTest
 import com.example.webnovelservice.domain.novel.steps.ChapterSteps
 import com.example.webnovelservice.domain.novel.steps.NovelSteps
 import com.example.webnovelservice.domain.user.UserRepository
-import com.example.webnovelservice.exception.ResourceNotFoundException
 import com.example.webnovelservice.security.TokenProvider
 import com.example.webnovelservice.security.UserPrincipal
-import io.restassured.RestAssured
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
-import org.springframework.http.MediaType
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 
 class ChapterApiTest extends ApiTest{
@@ -25,7 +22,7 @@ class ChapterApiTest extends ApiTest{
 
     def generateJwtToken() {
         if (jwtToken == null) {
-            def user = userRepository.findById(1L).get()
+            def user = userRepository.findByEmail("user123@user.com").get()
             def userDetails = UserPrincipal.create(user);
             def authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 
@@ -57,7 +54,7 @@ class ChapterApiTest extends ApiTest{
         response.jsonPath().getString("response.body.contents") == createChapterRequest.getContents()
     }
 
-    def "챕터 등록 시 소설이 존재하지 않는 경우 statusCode 404"() {
+    def "챕터 등록 시 소설이 존재하지 않는 경우 404 Not Found"() {
         given:
         generateJwtToken()
         def createChapterRequest = ChapterSteps.getRegisterChapterRequest();
@@ -67,6 +64,6 @@ class ChapterApiTest extends ApiTest{
         def response = ChapterSteps.requestRegisterChapter(createChapterRequest, jwtToken)
 
         then:
-        response.statusCode() == 404
+        response.statusCode() == HttpStatus.NOT_FOUND.value()
     }
 }

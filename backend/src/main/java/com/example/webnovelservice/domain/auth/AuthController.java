@@ -3,10 +3,10 @@ package com.example.webnovelservice.domain.auth;
 import com.example.webnovelservice.exception.BadRequestException;
 import com.example.webnovelservice.model.enums.AuthProvider;
 import com.example.webnovelservice.domain.user.entity.User;
-import com.example.webnovelservice.model.dto.ApiResponse;
-import com.example.webnovelservice.model.dto.AuthResponse;
-import com.example.webnovelservice.model.command.LoginRequest;
-import com.example.webnovelservice.model.command.SignUpRequest;
+import com.example.webnovelservice.model.dto.response.ApiResponse;
+import com.example.webnovelservice.model.dto.response.AuthResponse;
+import com.example.webnovelservice.model.dto.request.LoginRequest;
+import com.example.webnovelservice.model.dto.request.SignUpRequest;
 import com.example.webnovelservice.domain.user.UserRepository;
 import com.example.webnovelservice.security.TokenProvider;
 

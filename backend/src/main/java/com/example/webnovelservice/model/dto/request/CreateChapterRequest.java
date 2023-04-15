@@ -1,22 +1,22 @@
-package com.example.webnovelservice.model.command;
+package com.example.webnovelservice.model.dto.request;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public final class RegisterChapterRequest {
+public final class CreateChapterRequest {
 	private Long novelId;
 	private String title;
 	private String contents;
 
 	private Integer order;
 
-	public RegisterChapterRequest(Long novelId, String title, String contents) {
+	public CreateChapterRequest(Long novelId, String title, String contents) {
 		this.novelId = novelId;
 		this.title = title;
 		this.contents = contents;
 	}
 
-	public RegisterChapterRequest() {}
+	public CreateChapterRequest() {}
 }

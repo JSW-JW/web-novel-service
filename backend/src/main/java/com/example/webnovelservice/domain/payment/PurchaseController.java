@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.webnovelservice.model.command.PurchaseRequest;
-import com.example.webnovelservice.model.dto.PurchaseDto;
+import com.example.webnovelservice.model.dto.request.CreatePurchaseRequest;
+import com.example.webnovelservice.model.dto.response.PurchaseDto;
 import com.example.webnovelservice.security.CurrentUser;
 import com.example.webnovelservice.security.UserPrincipal;
 
@@ -25,10 +25,10 @@ public class PurchaseController {
 	}
 
 	@PostMapping
-	public ResponseEntity<PurchaseDto> purchaseChapter(@Valid @RequestBody PurchaseRequest purchaseRequest,
+	public ResponseEntity<PurchaseDto> purchaseChapter(@Valid @RequestBody CreatePurchaseRequest createPurchaseRequest,
 		@CurrentUser UserPrincipal userPrincipal) {
 		Long userId = userPrincipal.getId();
-		PurchaseDto purchaseDto = purchaseService.purchaseChapter(userId, purchaseRequest.getChapterId());
+		PurchaseDto purchaseDto = purchaseService.purchaseChapter(userId, createPurchaseRequest.getChapterId());
 		return ResponseEntity.status(HttpStatus.CREATED).body(purchaseDto);
 	}
 }
