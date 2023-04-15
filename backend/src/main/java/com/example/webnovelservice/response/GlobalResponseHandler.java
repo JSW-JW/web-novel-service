@@ -169,7 +169,6 @@ public class GlobalResponseHandler extends ResponseEntityExceptionHandler implem
 		ErrorResponse err = new ErrorResponse(LocalDateTime.now(), HttpStatus.BAD_REQUEST, "Method Not Found", details);
 
 		return ResponseEntityBuilder.build(err);
-
 	}
 
 	@ExceptionHandler({Exception.class})
@@ -181,6 +180,5 @@ public class GlobalResponseHandler extends ResponseEntityExceptionHandler implem
 		ErrorResponse err = new ErrorResponse(LocalDateTime.now(), HttpStatus.BAD_REQUEST, "Error occurred", details);
 
 		return ResponseEntityBuilder.build(err);
-
 	}
 }

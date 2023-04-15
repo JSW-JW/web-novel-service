@@ -1,13 +1,12 @@
 package com.example.webnovelservice.domain.novel.service
 
-import com.example.webnovelservice.domain.novel.ChapterRepository
+
 import com.example.webnovelservice.domain.novel.ChapterService
-import com.example.webnovelservice.domain.novel.DatabaseCleanup
-import com.example.webnovelservice.domain.novel.NovelRepository
-import com.example.webnovelservice.model.command.RegisterChapterRequest
-import com.example.webnovelservice.model.dto.ChapterDto
+import com.example.webnovelservice.domain.novel.common.DatabaseCleanup
+import com.example.webnovelservice.domain.novel.entity.Chapter
+import com.example.webnovelservice.domain.novel.steps.ChapterSteps
+import com.example.webnovelservice.exception.ResourceNotFoundException
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ContextConfiguration
 import spock.lang.Specification
@@ -20,9 +19,6 @@ class ChapterServiceTest extends Specification {
     ChapterService chapterService;
 
     @Autowired
-    NovelServiceTest novelServiceTest;
-
-    @Autowired
     DatabaseCleanup databaseCleanup;
 
     def setup() {
@@ -30,18 +26,15 @@ class ChapterServiceTest extends Specification {
         databaseCleanup.execute();
     }
 
-    def "should register chapter for novel"() {
+    def "챕터 등록 시 novelId 가 존재하지 않으면 ResourceNotFoundException"() {
         given:
-        novelServiceTest.shouldregisternovel();
-
-        Long novelId = 1L
-        RegisterChapterRequest request = new RegisterChapterRequest(novelId, "Chapter 1", "Contents 1")
-        ChapterDto expectedDto = new ChapterDto(1L, request.title(), request.contents(), novelId)
+        def createChapterRequest = ChapterSteps.getRegisterChapterRequest()
 
         when:
-        ChapterDto actualDto = chapterService.registerChapterForNovel(request)
+        chapterService.registerChapterForNovel(createChapterRequest)
 
         then:
-        actualDto == expectedDto
+        def e = thrown(ResourceNotFoundException)
+        e.getMessage() == "Novel not found with novel id : '1'"
     }
 }

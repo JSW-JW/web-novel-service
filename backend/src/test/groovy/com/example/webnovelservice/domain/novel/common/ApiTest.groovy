@@ -1,8 +1,9 @@
-package com.example.webnovelservice.domain.novel
+package com.example.webnovelservice.domain.novel.common
 
 import com.example.webnovelservice.domain.user.UserRepository
 import com.example.webnovelservice.domain.user.entity.User
 import com.example.webnovelservice.model.enums.AuthProvider
+import com.example.webnovelservice.model.enums.UserRole
 import io.restassured.RestAssured
 import org.spockframework.spring.EnableSharedInjection
 import org.springframework.beans.factory.annotation.Autowired
@@ -32,8 +33,13 @@ class ApiTest extends Specification {
 
     def setupSpec() {
         try {
-            def user = new User(name: "test-name", emailVerified: true, email: "test123@test.com", password: "password", provider: AuthProvider.local)
+            def user = new User(name: "test-name", emailVerified: true, email: "user123@user.com",
+                    password: "password", provider: AuthProvider.local, userRole: UserRole.USER)
             userRepository.save(user)
+
+            def author = new User(name: "test-name", emailVerified: true, email: "author123@author.com",
+                    password: "password", provider: AuthProvider.local, userRole: UserRole.AUTHOR)
+            userRepository.save(author)
 
         } catch (DataIntegrityViolationException e) {
             // log the exception and ignore.

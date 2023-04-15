@@ -4,6 +4,7 @@ import com.example.webnovelservice.exception.OAuth2AuthenticationProcessingExcep
 import com.example.webnovelservice.model.enums.AuthProvider;
 import com.example.webnovelservice.domain.user.entity.User;
 import com.example.webnovelservice.domain.user.UserRepository;
+import com.example.webnovelservice.model.enums.UserRole;
 import com.example.webnovelservice.security.UserPrincipal;
 import com.example.webnovelservice.security.oauth2.user.OAuth2UserInfo;
 import com.example.webnovelservice.security.oauth2.user.OAuth2UserInfoFactory;
@@ -75,6 +76,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         user.setName(oAuth2UserInfo.getName());
         user.setEmail(oAuth2UserInfo.getEmail());
         user.setImageUrl(oAuth2UserInfo.getImageUrl());
+        user.setUserRole(UserRole.USER);
         return userRepository.save(user);
     }
 

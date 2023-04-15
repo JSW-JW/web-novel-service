@@ -80,6 +80,7 @@ public class SecurityConfig implements WebMvcConfigurer {
 			.requestMatchers("/auth/**", "/oauth2/**", "/", "/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**",
 				"/docs/**", "/error", "/favicon.ico", "/api/v1/novels/home-best")
 			.permitAll()
+			.requestMatchers("/api/v1/novels").hasRole("AUTHOR")
 			.anyRequest()
 			.authenticated()
 			.and()

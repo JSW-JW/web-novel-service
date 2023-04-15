@@ -41,9 +41,14 @@ public class ChapterService {
 	}
 
 	public ChapterDto registerChapterForNovel(RegisterChapterRequest request) {
-		Long novelId = request.novelId();
+		Long novelId = request.getNovelId();
 		Novel novel = novelRepository.findById(novelId)
 			.orElseThrow(() -> new ResourceNotFoundException("Novel", "novel id", novelId));
+
+		// get the number of chapters related with the novel id
+		Integer chapterNums = chapterRepository.countByNovelId(novelId);
+		// set the order of chapter in request variable
+		request.setOrder(chapterNums + 1);
 
 		Chapter chapter = modelMapper.map(request, Chapter.class);
 		chapter.setNovel(novel);

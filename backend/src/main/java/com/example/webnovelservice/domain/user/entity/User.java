@@ -5,6 +5,7 @@ import com.example.webnovelservice.domain.payment.entity.Purchase;
 import com.example.webnovelservice.model.enums.AuthProvider;
 import com.example.webnovelservice.domain.novel.entity.Novel;
 import com.example.webnovelservice.domain.payment.entity.OwnershipTokenTransaction;
+import com.example.webnovelservice.model.enums.UserRole;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
@@ -53,6 +54,10 @@ public class User {
     private AuthProvider provider;
 
     private String providerId;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private UserRole userRole;
 
     @OneToMany(mappedBy = "author")
     private Set<Novel> novels;

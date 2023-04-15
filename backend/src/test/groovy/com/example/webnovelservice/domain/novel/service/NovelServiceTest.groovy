@@ -1,6 +1,6 @@
 package com.example.webnovelservice.domain.novel.service
 
-import com.example.webnovelservice.domain.novel.DatabaseCleanup
+import com.example.webnovelservice.domain.novel.common.DatabaseCleanup
 import com.example.webnovelservice.domain.novel.NovelService
 import com.example.webnovelservice.model.command.RegisterNovelRequest
 import com.example.webnovelservice.model.dto.NovelDto

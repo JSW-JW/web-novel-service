@@ -1,4 +1,4 @@
-package com.example.webnovelservice.domain.novel
+package com.example.webnovelservice.domain.novel.steps
 
 import com.example.webnovelservice.model.command.RegisterNovelRequest
 import io.restassured.RestAssured
@@ -8,18 +8,18 @@ import org.springframework.http.MediaType
 
 class NovelSteps {
 
-    static ExtractableResponse<Response> apiRequestRegisterNovel(RegisterNovelRequest request, String endpoint, String jwtToken) {
+    static ExtractableResponse<Response> requestRegisterNovel(RegisterNovelRequest request, String jwtToken) {
 
         return RestAssured.given().log().all()
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .body(request)
                 .header("Authorization", "Bearer " + jwtToken)
-                .post(endpoint)
+                .post("/api/v1/novels")
                 .then()
                 .log().all().extract();
     }
 
-    static RegisterNovelRequest registerNovelRequest() {
+    static RegisterNovelRequest getRegisterNovelRequest() {
         final String title = "title 1";
         final String description = "description 1";
         final String genre = "genre 1";
