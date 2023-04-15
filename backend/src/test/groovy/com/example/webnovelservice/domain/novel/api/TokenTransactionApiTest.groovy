@@ -6,6 +6,7 @@ import com.example.webnovelservice.domain.user.UserRepository
 import com.example.webnovelservice.security.TokenProvider
 import com.example.webnovelservice.security.UserPrincipal
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.HttpStatus
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 class TokenTransactionApiTest extends ApiTest {
@@ -38,7 +39,7 @@ class TokenTransactionApiTest extends ApiTest {
         def response = TokenTransactionSteps.requestPurchaseToken(request, jwtToken)
 
         then:
-        response.statusCode() == 200
+        response.statusCode() == HttpStatus.OK.value()
         response.jsonPath().getLong("response.body.id") == 1
         response.jsonPath().getInt("response.body.tokensPurchased") == request.getTokensToCharge()
         response.jsonPath().getInt("response.body.price") != -1
