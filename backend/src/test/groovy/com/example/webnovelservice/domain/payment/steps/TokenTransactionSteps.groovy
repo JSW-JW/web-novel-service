@@ -1,4 +1,4 @@
-package com.example.webnovelservice.domain.novel.steps
+package com.example.webnovelservice.domain.payment.steps
 
 import com.example.webnovelservice.model.dto.request.CreateTokenTransactionRequest
 import io.restassured.RestAssured
