@@ -1,7 +1,7 @@
 ---
 name: requirements
 about: Suggest an idea for this project
-title: "[FEATURE]"
+title: "[feature]"
 labels: enhancement
 assignees: JSW-JW
 

@@ -1,7 +1,7 @@
 ---
 name: testing
 about: Describe this issue template's purpose here.
-title: "[TEST]"
+title: "[test]"
 labels: test
 assignees: JSW-JW
 
