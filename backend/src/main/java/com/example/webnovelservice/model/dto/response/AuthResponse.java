@@ -1,4 +1,4 @@
-package com.example.webnovelservice.model.dto;
+package com.example.webnovelservice.model.dto.response;
 
 public class AuthResponse {
     private String accessToken;

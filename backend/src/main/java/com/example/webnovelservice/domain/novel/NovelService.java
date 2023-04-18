@@ -2,8 +2,8 @@ package com.example.webnovelservice.domain.novel;
 
 
 import com.example.webnovelservice.exception.ResourceNotFoundException;
-import com.example.webnovelservice.model.command.RegisterNovelRequest;
-import com.example.webnovelservice.model.dto.NovelDto;
+import com.example.webnovelservice.model.dto.request.CreateNovelRequest;
+import com.example.webnovelservice.model.dto.response.NovelDto;
 import com.example.webnovelservice.domain.novel.entity.Novel;
 
 import org.modelmapper.ModelMapper;
@@ -52,7 +52,7 @@ public class NovelService {
 			.collect(Collectors.toList());
 	}
 
-	public NovelDto registerNovel(RegisterNovelRequest request) {
+	public NovelDto registerNovel(CreateNovelRequest request) {
 		Novel novel = modelMapper.map(request, Novel.class);
 		Novel createdNovel = novelRepository.save(novel);
 		return modelMapper.map(createdNovel, NovelDto.class);

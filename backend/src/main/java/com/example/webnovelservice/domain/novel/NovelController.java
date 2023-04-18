@@ -1,6 +1,5 @@
 package com.example.webnovelservice.domain.novel;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,8 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.Map;
 
-import com.example.webnovelservice.model.command.RegisterNovelRequest;
-import com.example.webnovelservice.model.dto.NovelDto;
+import com.example.webnovelservice.model.dto.request.CreateNovelRequest;
+import com.example.webnovelservice.model.dto.response.NovelDto;
 import com.example.webnovelservice.response.SuccessResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -31,8 +30,8 @@ public class NovelController {
 	@PostMapping
 	// intercept the request before reaching this controller.
 	@PreAuthorize("hasRole('AUTHOR')")
-	public SuccessResponse<NovelDto> registerNovel(@Valid @RequestBody RegisterNovelRequest registerNovelRequest, HttpServletResponse response) {
-		NovelDto novelDto = novelService.registerNovel(registerNovelRequest);
+	public SuccessResponse<NovelDto> registerNovel(@Valid @RequestBody CreateNovelRequest createNovelRequest, HttpServletResponse response) {
+		NovelDto novelDto = novelService.registerNovel(createNovelRequest);
 		return new SuccessResponse<>(novelDto);
 	}
 

@@ -1,9 +1,9 @@
 package com.example.webnovelservice.domain.novel.service
 
-import com.example.webnovelservice.domain.novel.common.DatabaseCleanup
+import com.example.webnovelservice.domain.common.DatabaseCleanup
 import com.example.webnovelservice.domain.novel.NovelService
-import com.example.webnovelservice.model.command.RegisterNovelRequest
-import com.example.webnovelservice.model.dto.NovelDto
+import com.example.webnovelservice.model.dto.request.CreateNovelRequest
+import com.example.webnovelservice.model.dto.response.NovelDto
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ContextConfiguration
@@ -26,7 +26,7 @@ class NovelServiceTest extends Specification {
 
     def "should_register_novel"() {
         given:
-        RegisterNovelRequest request = new RegisterNovelRequest("title 1", "description 1", "genre 1", 1L)
+        CreateNovelRequest request = new CreateNovelRequest("title 1", "description 1", "genre 1", 1L)
         NovelDto expectedDto = new NovelDto(1L, request.getTitle(), request.getGenre(), request.getDescription(), null)
 
         when:

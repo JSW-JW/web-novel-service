@@ -1,15 +1,16 @@
-package com.example.webnovelservice.domain.novel.api;
+package com.example.webnovelservice.domain.novel.api
 
 import com.example.webnovelservice.domain.common.ApiTest
 import com.example.webnovelservice.domain.novel.steps.NovelSteps
+import com.example.webnovelservice.domain.novel.steps.TokenTransactionSteps
 import com.example.webnovelservice.domain.user.UserRepository
 import com.example.webnovelservice.security.TokenProvider
 import com.example.webnovelservice.security.UserPrincipal
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
-class NovelApiTest extends ApiTest {
+class TokenTransactionApiTest extends ApiTest {
 
     @Autowired
     TokenProvider tokenProvider
@@ -20,7 +21,7 @@ class NovelApiTest extends ApiTest {
     static String jwtTokenOfUserID
     static String jwtTokenOfAuthorID
 
-    def generateJwtToken() {
+    def generateJwtTokenOfUserID() {
         if (jwtTokenOfUserID == null) {
             def user = userRepository.findByEmail("user123@user.com").get()
             def userDetails = UserPrincipal.create(user);
@@ -32,7 +33,7 @@ class NovelApiTest extends ApiTest {
     }
 
     // 작가의 권한을 가진 jwt token 을 생성
-    def generateJwtTokenOfAuthorId() {
+    def generateJwtTokenOfAuthorID() {
         if (jwtTokenOfAuthorID == null) {
             def user = userRepository.findByEmail("author123@author.com").get()
             def userDetails = UserPrincipal.create(user);
@@ -43,45 +44,41 @@ class NovelApiTest extends ApiTest {
         }
     }
 
-    def "소설 등록"() {
+    def "소장권 구매 요청 성공"() {
         given:
-        generateJwtTokenOfAuthorId()
-        def request = NovelSteps.getRegisterNovelRequest();
+        jwtTokenOfUserID = generateJwtTokenOfUserID()
+        jwtTokenOfAuthorID = generateJwtTokenOfAuthorID()
+
+        // 소장권에 해당하는 소설 생성
+        def createNovelRequest = NovelSteps.getRegisterNovelRequest();
+        NovelSteps.requestRegisterNovel(createNovelRequest, jwtTokenOfAuthorID);
+
+        def request = TokenTransactionSteps.getCreateTokenTransactionRequest()
 
         when:
-        // pass the request with the generated jwt token
-        def response = NovelSteps.requestRegisterNovel(request, jwtTokenOfAuthorID);
+        def response = TokenTransactionSteps.requestPurchaseToken(request, jwtTokenOfUserID)
 
         then:
-
         response.statusCode() == HttpStatus.OK.value()
         response.jsonPath().getLong("response.body.id") == 1
-        response.jsonPath().getString("response.body.title") == request.getTitle()
-        response.jsonPath().getString("response.body.description") == request.getDescription()
-        response.jsonPath().getString("response.body.genre") == request.getGenre()
+        response.jsonPath().getInt("response.body.tokensPurchased") == request.getTokensToCharge()
+        response.jsonPath().getInt("response.body.price") != -1
     }
 
-    def "로그인 하지 않고 소설 등록을 할 수 없다"() {
+    def "작가는 소장권을 구매할 수 없다"() {
         given:
-        def request = NovelSteps.getRegisterNovelRequest();
+        jwtTokenOfAuthorID = generateJwtTokenOfAuthorID()
+
+        // 소장권에 해당하는 소설 생성
+        def createNovelRequest = NovelSteps.getRegisterNovelRequest();
+        NovelSteps.requestRegisterNovel(createNovelRequest, jwtTokenOfAuthorID);
+
+        def request = TokenTransactionSteps.getCreateTokenTransactionRequest()
 
         when:
-        def response = NovelSteps.requestRegisterNovel(request, null)
-
-        then:
-        response.statusCode() == HttpStatus.UNAUTHORIZED.value()
-    }
-
-    def "작가가 아니면 소설 등록을 할 수 없다"() {
-        given:
-        generateJwtToken()
-        def request = NovelSteps.getRegisterNovelRequest();
-
-        when:
-        def response = NovelSteps.requestRegisterNovel(request, jwtTokenOfUserID)
+        def response = TokenTransactionSteps.requestPurchaseToken(request, jwtTokenOfAuthorID)
 
         then:
         response.statusCode() == HttpStatus.FORBIDDEN.value()
     }
-
 }

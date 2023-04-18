@@ -2,6 +2,7 @@ package com.example.webnovelservice.domain.payment;
 
 import java.util.Optional;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import com.example.webnovelservice.exception.ResourceNotFoundException;
@@ -11,50 +12,61 @@ import com.example.webnovelservice.domain.payment.entity.OwnershipTokenTransacti
 import com.example.webnovelservice.domain.user.entity.User;
 import com.example.webnovelservice.domain.novel.NovelRepository;
 import com.example.webnovelservice.domain.user.UserRepository;
+import com.example.webnovelservice.model.dto.request.CreateTokenTransactionRequest;
+import com.example.webnovelservice.model.dto.response.TokenTransactionDto;
 
 @Service
-public class OwnershipTokenService {
+public class OwnershipTokenTransactionService {
 	private final OwnershipTokenTransactionRepository ownershipTokenTransactionRepository;
 	private final UserRepository userRepository;
 	private final NovelRepository novelRepository;
 	private final NovelTokenCounterRepository novelTokenCounterRepository;
+	private final ModelMapper modelMapper;
 
-	public OwnershipTokenService(OwnershipTokenTransactionRepository ownershipTokenTransactionRepository,
+	public OwnershipTokenTransactionService(OwnershipTokenTransactionRepository ownershipTokenTransactionRepository,
 		UserRepository userRepository, NovelRepository novelRepository,
-		NovelTokenCounterRepository novelTokenCounterRepository) {
+		NovelTokenCounterRepository novelTokenCounterRepository,
+		ModelMapper modelMapper) {
 		this.ownershipTokenTransactionRepository = ownershipTokenTransactionRepository;
 		this.userRepository = userRepository;
 		this.novelRepository = novelRepository;
 		this.novelTokenCounterRepository = novelTokenCounterRepository;
+		this.modelMapper = modelMapper;
 	}
 
-	public void chargeOwnershipToken(Long userId, int tokens, int price, Long novelId) {
+	public TokenTransactionDto chargeOwnershipToken(Long userId, CreateTokenTransactionRequest request) {
+		Long novelId = request.getNovelId();
+		Integer tokensToCharge = request.getTokensToCharge();
 		User user = userRepository.findById(userId)
 			.orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
 
-		Novel novel = novelRepository.findById(novelId)
+		Novel novel = novelRepository.findById(userId)
 			.orElseThrow(() -> new ResourceNotFoundException("Novel", "id", novelId));
 
 		OwnershipTokenTransaction ownershipTokenTransaction = new OwnershipTokenTransaction();
 		ownershipTokenTransaction.setUser(user);
-		ownershipTokenTransaction.setTokensPurchased(tokens);
+
+		ownershipTokenTransaction.setTokensPurchased(request.getTokensToCharge());
+		Integer price = TokenPolicyService.getPrice(request.getTokensToCharge(), novelId);
 		ownershipTokenTransaction.setPrice(price);
 
-		ownershipTokenTransactionRepository.save(ownershipTokenTransaction);
+		OwnershipTokenTransaction transaction = ownershipTokenTransactionRepository.save(ownershipTokenTransaction);
 
 		Optional<NovelTokenCounter> novelTokenCounterOptional = novelTokenCounterRepository.findByUserIdAndNovelId(
 			userId, novelId);
+		NovelTokenCounter novelTokenCounter;
 		if (novelTokenCounterOptional.isPresent()) {
-			NovelTokenCounter novelTokenCounter = novelTokenCounterOptional.get();
-			novelTokenCounter.setTokenCount(novelTokenCounter.getTokenCount() + tokens);
-			novelTokenCounterRepository.save(novelTokenCounter);
+			novelTokenCounter = novelTokenCounterOptional.get();
+			novelTokenCounter.setTokenCount(novelTokenCounter.getTokenCount() + tokensToCharge);
 		} else {
-			NovelTokenCounter novelTokenCounter = new NovelTokenCounter();
+			novelTokenCounter = new NovelTokenCounter();
 			novelTokenCounter.setUser(user);
 			novelTokenCounter.setNovel(novel);
-			novelTokenCounter.setTokenCount(tokens);
-			novelTokenCounterRepository.save(novelTokenCounter);
+			novelTokenCounter.setTokenCount(tokensToCharge);
 		}
+		novelTokenCounterRepository.save(novelTokenCounter);
+
+		return modelMapper.map(transaction, TokenTransactionDto.class);
 	}
 
 }

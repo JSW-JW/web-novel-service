@@ -10,8 +10,8 @@ import java.util.stream.Collectors;
 import com.example.webnovelservice.domain.novel.entity.Chapter;
 import com.example.webnovelservice.domain.novel.entity.Novel;
 import com.example.webnovelservice.exception.ResourceNotFoundException;
-import com.example.webnovelservice.model.command.RegisterChapterRequest;
-import com.example.webnovelservice.model.dto.ChapterDto;
+import com.example.webnovelservice.model.dto.request.CreateChapterRequest;
+import com.example.webnovelservice.model.dto.response.ChapterDto;
 
 @Service
 public class ChapterService {
@@ -40,7 +40,7 @@ public class ChapterService {
 			.collect(Collectors.toList());
 	}
 
-	public ChapterDto registerChapterForNovel(RegisterChapterRequest request) {
+	public ChapterDto registerChapterForNovel(CreateChapterRequest request) {
 		Long novelId = request.getNovelId();
 		Novel novel = novelRepository.findById(novelId)
 			.orElseThrow(() -> new ResourceNotFoundException("Novel", "novel id", novelId));

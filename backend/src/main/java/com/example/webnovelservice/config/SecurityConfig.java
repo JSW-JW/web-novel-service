@@ -81,6 +81,7 @@ public class SecurityConfig implements WebMvcConfigurer {
 				"/docs/**", "/error", "/favicon.ico", "/api/v1/novels/home-best")
 			.permitAll()
 			.requestMatchers("/api/v1/novels").hasRole("AUTHOR")
+			.requestMatchers("/api/v1/transactions").hasRole("USER")
 			.anyRequest()
 			.authenticated()
 			.and()
