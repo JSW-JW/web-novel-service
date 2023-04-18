@@ -54,17 +54,17 @@ public class OwnershipTokenTransactionService {
 
 		Optional<NovelTokenCounter> novelTokenCounterOptional = novelTokenCounterRepository.findByUserIdAndNovelId(
 			userId, novelId);
+		NovelTokenCounter novelTokenCounter;
 		if (novelTokenCounterOptional.isPresent()) {
-			NovelTokenCounter novelTokenCounter = novelTokenCounterOptional.get();
+			novelTokenCounter = novelTokenCounterOptional.get();
 			novelTokenCounter.setTokenCount(novelTokenCounter.getTokenCount() + tokensToCharge);
-			novelTokenCounterRepository.save(novelTokenCounter);
 		} else {
-			NovelTokenCounter novelTokenCounter = new NovelTokenCounter();
+			novelTokenCounter = new NovelTokenCounter();
 			novelTokenCounter.setUser(user);
 			novelTokenCounter.setNovel(novel);
 			novelTokenCounter.setTokenCount(tokensToCharge);
-			novelTokenCounterRepository.save(novelTokenCounter);
 		}
+		novelTokenCounterRepository.save(novelTokenCounter);
 
 		return modelMapper.map(transaction, TokenTransactionDto.class);
 	}
