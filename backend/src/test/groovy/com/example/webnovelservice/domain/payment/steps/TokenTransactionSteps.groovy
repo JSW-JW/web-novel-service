@@ -1,4 +1,4 @@
-package com.example.webnovelservice.domain.novel.steps
+package com.example.webnovelservice.domain.payment.steps
 
 import com.example.webnovelservice.model.dto.request.CreateTokenTransactionRequest
 import io.restassured.RestAssured
@@ -19,9 +19,8 @@ class TokenTransactionSteps {
                 .log().all().extract();
     }
 
-    static CreateTokenTransactionRequest getCreateTokenTransactionRequest() {
+    static CreateTokenTransactionRequest getCreateTokenTransactionRequest(Integer tokensToCharge) {
         final Long novelId = 1L
-        final Integer tokensToCharge = 5
         new CreateTokenTransactionRequest(novelId, tokensToCharge)
     }
 }

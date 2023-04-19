@@ -1,8 +1,8 @@
-package com.example.webnovelservice.domain.novel.api
+package com.example.webnovelservice.domain.payment.api
 
 import com.example.webnovelservice.domain.common.ApiTest
 import com.example.webnovelservice.domain.novel.steps.NovelSteps
-import com.example.webnovelservice.domain.novel.steps.TokenTransactionSteps
+import com.example.webnovelservice.domain.payment.steps.TokenTransactionSteps
 import com.example.webnovelservice.domain.user.UserRepository
 import com.example.webnovelservice.security.TokenProvider
 import com.example.webnovelservice.security.UserPrincipal
@@ -53,7 +53,8 @@ class TokenTransactionApiTest extends ApiTest {
         def createNovelRequest = NovelSteps.getRegisterNovelRequest();
         NovelSteps.requestRegisterNovel(createNovelRequest, jwtTokenOfAuthorID);
 
-        def request = TokenTransactionSteps.getCreateTokenTransactionRequest()
+        def tokensToCharge = 1
+        def request = TokenTransactionSteps.getCreateTokenTransactionRequest(tokensToCharge)
 
         when:
         def response = TokenTransactionSteps.requestPurchaseToken(request, jwtTokenOfUserID)
@@ -73,7 +74,8 @@ class TokenTransactionApiTest extends ApiTest {
         def createNovelRequest = NovelSteps.getRegisterNovelRequest();
         NovelSteps.requestRegisterNovel(createNovelRequest, jwtTokenOfAuthorID);
 
-        def request = TokenTransactionSteps.getCreateTokenTransactionRequest()
+        def tokensToCharge = 1
+        def request = TokenTransactionSteps.getCreateTokenTransactionRequest(tokensToCharge)
 
         when:
         def response = TokenTransactionSteps.requestPurchaseToken(request, jwtTokenOfAuthorID)

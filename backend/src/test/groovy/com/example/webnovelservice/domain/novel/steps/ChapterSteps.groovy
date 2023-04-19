@@ -18,10 +18,10 @@ class ChapterSteps {
                 .log().all().extract();
     }
 
-    static CreateChapterRequest getRegisterChapterRequest() {
+    static CreateChapterRequest getRegisterChapterRequest(Integer tokensRequired) {
         final Long novelId = 1L
         final String title = "test-title";
         final String contents = "test-contents"
-        new CreateChapterRequest(novelId, title, contents)
+        new CreateChapterRequest(novelId, title, contents, tokensRequired)
     }
 }
