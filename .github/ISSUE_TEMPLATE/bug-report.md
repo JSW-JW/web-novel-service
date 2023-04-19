@@ -1,8 +1,8 @@
 ---
 name: bug-report
 about: Create a report to help us improve
-title: "[BUG]"
-labels: bug
+title: "[bug]"
+labels: bug, test
 assignees: JSW-JW
 
 ---
