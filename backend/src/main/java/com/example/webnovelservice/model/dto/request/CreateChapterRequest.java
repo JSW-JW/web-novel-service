@@ -10,12 +10,14 @@ public final class CreateChapterRequest {
 	private String title;
 	private String contents;
 
+	private Integer tokensRequired;
 	private Integer order;
 
-	public CreateChapterRequest(Long novelId, String title, String contents) {
+	public CreateChapterRequest(Long novelId, String title, String contents, Integer tokensRequired) {
 		this.novelId = novelId;
 		this.title = title;
 		this.contents = contents;
+		this.tokensRequired = tokensRequired;
 	}
 
 	public CreateChapterRequest() {}

@@ -19,9 +19,8 @@ class TokenTransactionSteps {
                 .log().all().extract();
     }
 
-    static CreateTokenTransactionRequest getCreateTokenTransactionRequest() {
+    static CreateTokenTransactionRequest getCreateTokenTransactionRequest(Integer tokensToCharge) {
         final Long novelId = 1L
-        final Integer tokensToCharge = 5
         new CreateTokenTransactionRequest(novelId, tokensToCharge)
     }
 }

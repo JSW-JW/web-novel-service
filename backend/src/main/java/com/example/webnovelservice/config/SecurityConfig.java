@@ -82,6 +82,7 @@ public class SecurityConfig implements WebMvcConfigurer {
 			.permitAll()
 			.requestMatchers("/api/v1/novels").hasRole("AUTHOR")
 			.requestMatchers("/api/v1/transactions").hasRole("USER")
+			.requestMatchers("/api/v1/purchases").hasRole("USER")
 			.anyRequest()
 			.authenticated()
 			.and()

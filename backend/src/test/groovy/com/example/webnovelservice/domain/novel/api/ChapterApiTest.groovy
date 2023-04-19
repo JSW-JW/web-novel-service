@@ -21,14 +21,12 @@ class ChapterApiTest extends ApiTest{
     static String jwtToken
 
     def generateJwtToken() {
-        if (jwtToken == null) {
-            def user = userRepository.findByEmail("user123@user.com").get()
-            def userDetails = UserPrincipal.create(user);
-            def authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+        def user = userRepository.findByEmail("user123@user.com").get()
+        def userDetails = UserPrincipal.create(user);
+        def authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 
-            // generate jwt token for secured path api request
-            jwtToken = tokenProvider.createToken(authentication);
-        }
+        // generate jwt token for secured path api request
+        jwtToken = tokenProvider.createToken(authentication);
     }
 
     def "챕터 등록"() {

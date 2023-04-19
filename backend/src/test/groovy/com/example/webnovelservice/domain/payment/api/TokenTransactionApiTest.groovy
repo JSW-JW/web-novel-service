@@ -53,7 +53,8 @@ class TokenTransactionApiTest extends ApiTest {
         def createNovelRequest = NovelSteps.getRegisterNovelRequest();
         NovelSteps.requestRegisterNovel(createNovelRequest, jwtTokenOfAuthorID);
 
-        def request = TokenTransactionSteps.getCreateTokenTransactionRequest()
+        def tokensToCharge = 1
+        def request = TokenTransactionSteps.getCreateTokenTransactionRequest(tokensToCharge)
 
         when:
         def response = TokenTransactionSteps.requestPurchaseToken(request, jwtTokenOfUserID)
@@ -73,7 +74,8 @@ class TokenTransactionApiTest extends ApiTest {
         def createNovelRequest = NovelSteps.getRegisterNovelRequest();
         NovelSteps.requestRegisterNovel(createNovelRequest, jwtTokenOfAuthorID);
 
-        def request = TokenTransactionSteps.getCreateTokenTransactionRequest()
+        def tokensToCharge = 1
+        def request = TokenTransactionSteps.getCreateTokenTransactionRequest(tokensToCharge)
 
         when:
         def response = TokenTransactionSteps.requestPurchaseToken(request, jwtTokenOfAuthorID)
