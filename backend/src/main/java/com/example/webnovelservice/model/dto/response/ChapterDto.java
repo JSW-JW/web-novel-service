@@ -13,6 +13,8 @@ public class ChapterDto {
 	private Integer order;
 	private Long novelId;
 
+	private String imageUrl;
+
 	public ChapterDto(Long id, String title, String contents, Integer order, Long novelId) {
 		this.id = id;
 		this.title = title;
