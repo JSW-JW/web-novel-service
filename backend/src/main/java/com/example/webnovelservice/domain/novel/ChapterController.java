@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.webnovelservice.model.dto.request.CreateChapterRequest;
 import com.example.webnovelservice.model.dto.response.ChapterDto;
 import com.example.webnovelservice.response.SuccessResponse;
+import com.example.webnovelservice.security.CurrentUser;
+import com.example.webnovelservice.security.UserPrincipal;
 
 @RestController
 @RequestMapping("/api/v1/chapters")
@@ -22,7 +24,7 @@ public class ChapterController {
 		this.chapterService = chapterService;
 	}
 
-	@GetMapping("/{novelId}")
+	@GetMapping("/list/{novelId}")
 	public SuccessResponse<List<ChapterDto>> getChaptersByNovelId(@PathVariable Long novelId) {
 		List<ChapterDto> chapters = chapterService.getChaptersByNovelId(novelId);
 		return new SuccessResponse<>(chapters);
@@ -31,6 +33,12 @@ public class ChapterController {
 	@PostMapping
 	public SuccessResponse<ChapterDto> registerChapterForNovel(@RequestBody CreateChapterRequest createChapterRequest) {
 		ChapterDto chapterDto = chapterService.registerChapterForNovel(createChapterRequest);
+		return new SuccessResponse<>(chapterDto);
+	}
+
+	@GetMapping("/{chapterId}")
+	public SuccessResponse<ChapterDto> getChapterByChapterId(@PathVariable Long chapterId, @CurrentUser UserPrincipal userPrincipal) {
+		ChapterDto chapterDto = chapterService.getChapterByChapterId(chapterId, userPrincipal.getId());
 		return new SuccessResponse<>(chapterDto);
 	}
 }

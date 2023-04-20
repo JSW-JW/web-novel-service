@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 import com.example.webnovelservice.domain.novel.entity.Chapter;
 import com.example.webnovelservice.domain.novel.entity.Novel;
+import com.example.webnovelservice.domain.payment.PurchaseRepository;
 import com.example.webnovelservice.exception.ResourceNotFoundException;
 import com.example.webnovelservice.model.dto.request.CreateChapterRequest;
 import com.example.webnovelservice.model.dto.response.ChapterDto;
@@ -18,11 +19,14 @@ public class ChapterService {
 
 	private final ChapterRepository chapterRepository;
 	private final NovelRepository novelRepository;
+	private final PurchaseRepository purchaseRepository;
 	private final ModelMapper modelMapper;
 
-	public ChapterService(ChapterRepository chapterRepository, NovelRepository novelRepository, ModelMapper modelMapper) {
+	public ChapterService(ChapterRepository chapterRepository, NovelRepository novelRepository,
+		PurchaseRepository purchaseRepository, ModelMapper modelMapper) {
 		this.chapterRepository = chapterRepository;
 		this.novelRepository = novelRepository;
+		this.purchaseRepository = purchaseRepository;
 		this.modelMapper = modelMapper;
 
 		// Add custom mapping for Chapter to ChapterDto
@@ -56,5 +60,15 @@ public class ChapterService {
 		Chapter createdChapter = chapterRepository.save(chapter);
 
 		return modelMapper.map(createdChapter, ChapterDto.class);
+	}
+
+	public ChapterDto getChapterByChapterId(Long chapterId, Long userId) {
+		Chapter chapter = chapterRepository.findById(chapterId)
+			.orElseThrow(() -> new ResourceNotFoundException("Chapter", "chapter id", chapterId));
+
+		purchaseRepository.findByUserIdAndChapterId(userId, chapterId)
+			.orElseThrow(() -> new ResourceNotFoundException("Not purchased chapter"));
+
+		return modelMapper.map(chapter, ChapterDto.class);
 	}
 }

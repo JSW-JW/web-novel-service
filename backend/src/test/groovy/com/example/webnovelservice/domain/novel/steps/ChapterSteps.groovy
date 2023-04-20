@@ -18,6 +18,15 @@ class ChapterSteps {
                 .log().all().extract();
     }
 
+    static ExtractableResponse<Response> requestReadChapter(Long chapterId, String jwtToken) {
+        return RestAssured.given().log().all()
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .header("Authorization", "Bearer " + jwtToken)
+                .get("/api/v1/chapters/" + chapterId)
+                .then()
+                .log().all().extract();
+    }
+
     static CreateChapterRequest getRegisterChapterRequest(Integer tokensRequired) {
         final Long novelId = 1L
         final String title = "test-title";
