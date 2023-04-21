@@ -16,10 +16,10 @@ public class SuccessDTO<T> implements java.io.Serializable {
 		this.message = message;
 		if (length == 0) {
 			if (this.body instanceof List) {
-				this.length = ((List) this.body).size();
+				this.length = ((List<?>) this.body).size();
 			}
 			if (this.body instanceof Map) {
-				this.length = ((Map) this.body).size();
+				this.length = ((Map<?, ?>) this.body).size();
 			}
 		}
 	}
@@ -27,10 +27,10 @@ public class SuccessDTO<T> implements java.io.Serializable {
 		this.body = body;
 		this.message = message;
 		if (this.body instanceof List) {
-			this.length = ((List) this.body).size();
+			this.length = ((List<?>) this.body).size();
 		}
 		if (this.body instanceof Map) {
-			this.length = ((Map) this.body).size();
+			this.length = ((Map<?, ?>) this.body).size();
 		}
 	}
 	public SuccessDTO(T body, Integer length) {

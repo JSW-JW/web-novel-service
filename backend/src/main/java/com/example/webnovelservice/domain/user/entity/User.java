@@ -43,7 +43,7 @@ public class User {
 
     private String imageUrl;
 
-    @Column(nullable = false)
+    @Column
     private Boolean emailVerified = false;
 
     @JsonIgnore

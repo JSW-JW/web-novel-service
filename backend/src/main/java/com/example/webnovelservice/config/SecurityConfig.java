@@ -77,8 +77,9 @@ public class SecurityConfig implements WebMvcConfigurer {
 			.authenticationEntryPoint(new RestAuthenticationEntryPoint())
 			.and()
 			.authorizeHttpRequests()
-			.requestMatchers("/auth/**", "/oauth2/**", "/", "/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**",
-				"/docs/**", "/error", "/favicon.ico", "/api/v1/novels/home-best")
+			.requestMatchers("api/v1/auth/**", "/oauth2/**", "/",
+				"/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**", "/docs/**", "/error", "/favicon.ico",
+				"/api/v1/novels/home-best")
 			.permitAll()
 			.requestMatchers("/api/v1/novels").hasRole("AUTHOR")
 			.requestMatchers("/api/v1/transactions").hasRole("USER")
