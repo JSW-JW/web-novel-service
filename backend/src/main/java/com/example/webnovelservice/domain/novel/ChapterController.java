@@ -1,7 +1,6 @@
 package com.example.webnovelservice.domain.novel;
 
-import java.util.List;
-
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.webnovelservice.model.dto.request.CreateChapterRequest;
 import com.example.webnovelservice.model.dto.response.ChapterDto;
-import com.example.webnovelservice.response.SuccessResponse;
+import com.example.webnovelservice.model.dto.response.NovelDetailsResponse;
 import com.example.webnovelservice.security.CurrentUser;
 import com.example.webnovelservice.security.UserPrincipal;
 
@@ -25,20 +24,20 @@ public class ChapterController {
 	}
 
 	@GetMapping("/list/{novelId}")
-	public SuccessResponse<List<ChapterDto>> getChaptersByNovelId(@PathVariable Long novelId) {
-		List<ChapterDto> chapters = chapterService.getChaptersByNovelId(novelId);
-		return new SuccessResponse<>(chapters);
+	public ResponseEntity<NovelDetailsResponse> getNovelDetails(@PathVariable Long novelId) {
+		NovelDetailsResponse novelDetails = chapterService.getNovelAndChapters(novelId);
+		return ResponseEntity.ok(novelDetails);
 	}
 
 	@PostMapping
-	public SuccessResponse<ChapterDto> registerChapterForNovel(@RequestBody CreateChapterRequest createChapterRequest) {
+	public ResponseEntity<ChapterDto> registerChapterForNovel(@RequestBody CreateChapterRequest createChapterRequest) {
 		ChapterDto chapterDto = chapterService.registerChapterForNovel(createChapterRequest);
-		return new SuccessResponse<>(chapterDto);
+		return ResponseEntity.ok(chapterDto);
 	}
 
 	@GetMapping("/{chapterId}")
-	public SuccessResponse<ChapterDto> getChapterByChapterId(@PathVariable Long chapterId, @CurrentUser UserPrincipal userPrincipal) {
+	public ResponseEntity<ChapterDto> getChapterByChapterId(@PathVariable Long chapterId, @CurrentUser UserPrincipal userPrincipal) {
 		ChapterDto chapterDto = chapterService.getChapterByChapterId(chapterId, userPrincipal.getId());
-		return new SuccessResponse<>(chapterDto);
+		return ResponseEntity.ok(chapterDto);
 	}
 }

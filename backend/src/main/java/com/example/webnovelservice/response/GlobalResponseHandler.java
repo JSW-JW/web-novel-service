@@ -33,27 +33,27 @@ import com.example.webnovelservice.exception.ResourceNotFoundException;
 import jakarta.validation.ConstraintViolationException;
 
 @ControllerAdvice
-public class GlobalResponseHandler extends ResponseEntityExceptionHandler implements ResponseBodyAdvice<Object> {
+public class GlobalResponseHandler extends ResponseEntityExceptionHandler {
 
-	@Override
-	public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
-		return true;
-	}
-
-	@Override
-	public Object beforeBodyWrite(Object o, MethodParameter methodParameter, MediaType mediaType,
-		Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request,
-		ServerHttpResponse response) {
-		if (methodParameter.getContainingClass().isAnnotationPresent(RestController.class)) {
-			if (!Objects.requireNonNull(methodParameter.getMethod()).isAnnotationPresent(IgnoreResponseBinding.class)) {
-				if ((!(o instanceof ErrorResponse)) && (!(o instanceof SuccessResponse))) {
-					SuccessResponse<Object> responseBody = new SuccessResponse<>(o);
-					return responseBody;
-				}
-			}
-		}
-		return o;
-	}
+	// @Override
+	// public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
+	// 	return true;
+	// }
+	//
+	// @Override
+	// public Object beforeBodyWrite(Object o, MethodParameter methodParameter, MediaType mediaType,
+	// 	Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request,
+	// 	ServerHttpResponse response) {
+	// 	if (methodParameter.getContainingClass().isAnnotationPresent(RestController.class)) {
+	// 		if (!Objects.requireNonNull(methodParameter.getMethod()).isAnnotationPresent(IgnoreResponseBinding.class)) {
+	// 			if ((!(o instanceof ErrorResponse)) && (!(o instanceof SuccessResponse))) {
+	// 				SuccessResponse<Object> responseBody = new SuccessResponse<>(o);
+	// 				return responseBody;
+	// 			}
+	// 		}
+	// 	}
+	// 	return o;
+	// }
 
 	// handleHttpMediaTypeNotSupported : triggers when the JSON is invalid
 	@Override

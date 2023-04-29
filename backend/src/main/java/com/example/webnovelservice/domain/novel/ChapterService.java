@@ -13,6 +13,7 @@ import com.example.webnovelservice.domain.payment.PurchaseRepository;
 import com.example.webnovelservice.exception.ResourceNotFoundException;
 import com.example.webnovelservice.model.dto.request.CreateChapterRequest;
 import com.example.webnovelservice.model.dto.response.ChapterDto;
+import com.example.webnovelservice.model.dto.response.NovelDetailsResponse;
 
 @Service
 public class ChapterService {
@@ -34,14 +35,16 @@ public class ChapterService {
 			.addMapping(src -> src.getNovel().getId(), ChapterDto::setNovelId);
 	}
 
-	public List<ChapterDto> getChaptersByNovelId(Long novelId) {
-		novelRepository.findById(novelId)
+	public NovelDetailsResponse getNovelAndChapters(Long novelId) {
+		Novel novel = novelRepository.findById(novelId)
 			.orElseThrow(() -> new ResourceNotFoundException("Novel", "novel id", novelId));
 
 		List<Chapter> chapters = chapterRepository.findByNovelId(novelId);
-		return chapters.stream()
+		List<ChapterDto> listOfChapterDto = chapters.stream()
 			.map(chapter -> modelMapper.map(chapter, ChapterDto.class))
 			.collect(Collectors.toList());
+
+		return new NovelDetailsResponse(novel, listOfChapterDto);
 	}
 
 	public ChapterDto registerChapterForNovel(CreateChapterRequest request) {
