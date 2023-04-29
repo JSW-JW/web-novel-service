@@ -67,6 +67,7 @@ class ChapterApiTest extends ApiTest{
         response.jsonPath().getString("response.body.contents") == createChapterRequest.getContents()
     }
 
+
     def "챕터 등록 시 소설이 존재하지 않는 경우 404 Not Found"() {
         given:
         generateJwtTokenOfAuthorID()

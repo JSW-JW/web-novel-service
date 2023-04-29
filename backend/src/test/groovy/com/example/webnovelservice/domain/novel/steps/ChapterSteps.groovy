@@ -27,6 +27,14 @@ class ChapterSteps {
                 .log().all().extract();
     }
 
+    static ExtractableResponse<Response> requestChaptersList(Long novelId) {
+        return RestAssured.given().log().all()
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .get("/api/v1/chapters/list/" + novelId)
+                .then()
+                .log().all().extract();
+    }
+
     static CreateChapterRequest getRegisterChapterRequest(Integer tokensRequired) {
         final Long novelId = 1L
         final String title = "test-title";

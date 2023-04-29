@@ -20,7 +20,6 @@ import com.example.webnovelservice.model.dto.request.SignUpRequest;
 import com.example.webnovelservice.model.dto.response.AuthResponse;
 import com.example.webnovelservice.model.enums.AuthProvider;
 import com.example.webnovelservice.model.enums.UserRole;
-import com.example.webnovelservice.response.SuccessResponse;
 import com.example.webnovelservice.security.TokenProvider;
 
 import jakarta.validation.Valid;
@@ -68,7 +67,7 @@ public class AuthController {
     }
 
     @PostMapping("/signup")
-    public SuccessResponse<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
+    public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
         if(userRepository.existsByEmail(signUpRequest.getEmail())) {
             throw new BadRequestException("Email address already in use.");
         }
@@ -85,7 +84,7 @@ public class AuthController {
 
         User result = userRepository.save(user);
 
-        return new SuccessResponse<>(null, "User registered successfully!");
+        return ResponseEntity.ok("User registered successfully!");
     }
 
 }
