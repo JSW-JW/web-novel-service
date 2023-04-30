@@ -1,6 +1,6 @@
 package com.example.webnovelservice.domain.novel.steps
 
-import com.example.webnovelservice.model.dto.request.CreateNovelRequest
+import com.example.webnovelservice.novel.dto.request.CreateNovelRequest
 import io.restassured.RestAssured
 import io.restassured.response.ExtractableResponse
 import io.restassured.response.Response

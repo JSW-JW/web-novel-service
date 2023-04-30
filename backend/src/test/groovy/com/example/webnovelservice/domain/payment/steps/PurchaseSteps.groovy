@@ -2,7 +2,7 @@ package com.example.webnovelservice.domain.payment.steps;
 
 import org.springframework.http.MediaType;
 
-import com.example.webnovelservice.model.dto.request.CreatePurchaseRequest;
+import com.example.webnovelservice.payment.dto.request.CreatePurchaseRequest;
 
 import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;

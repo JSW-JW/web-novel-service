@@ -1,6 +1,6 @@
 package com.example.webnovelservice.domain.payment.steps
 
-import com.example.webnovelservice.model.dto.request.CreateTokenTransactionRequest
+import com.example.webnovelservice.payment.dto.request.CreateTokenTransactionRequest
 import io.restassured.RestAssured
 import io.restassured.response.ExtractableResponse
 import io.restassured.response.Response

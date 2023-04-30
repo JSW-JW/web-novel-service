@@ -1,6 +1,6 @@
 package com.example.webnovelservice;
 
-import com.example.webnovelservice.config.AppProperties;
+import com.example.webnovelservice.commons.properties.AppProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

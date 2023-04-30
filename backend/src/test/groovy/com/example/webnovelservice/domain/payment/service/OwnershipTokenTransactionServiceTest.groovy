@@ -1,16 +1,16 @@
 package com.example.webnovelservice.domain.payment.service
 
-import com.example.webnovelservice.domain.novel.NovelRepository
-import com.example.webnovelservice.domain.novel.entity.Novel
-import com.example.webnovelservice.domain.payment.NovelTokenCounterRepository
-import com.example.webnovelservice.domain.payment.OwnershipTokenTransactionRepository
-import com.example.webnovelservice.domain.payment.OwnershipTokenTransactionService
-import com.example.webnovelservice.domain.payment.TokenPolicyService
-import com.example.webnovelservice.domain.payment.entity.NovelTokenCounter
-import com.example.webnovelservice.domain.payment.entity.OwnershipTokenTransaction
-import com.example.webnovelservice.domain.user.UserRepository
-import com.example.webnovelservice.domain.user.entity.User
-import com.example.webnovelservice.model.dto.request.CreateTokenTransactionRequest
+import com.example.webnovelservice.novel.domain.repository.NovelRepository
+import com.example.webnovelservice.novel.domain.entity.Novel
+import com.example.webnovelservice.payment.domain.repository.NovelTokenCounterRepository
+import com.example.webnovelservice.payment.domain.repository.OwnershipTokenTransactionRepository
+import com.example.webnovelservice.payment.domain.service.OwnershipTokenTransactionService
+import com.example.webnovelservice.payment.domain.service.TokenPolicyService
+import com.example.webnovelservice.payment.domain.entity.NovelTokenCounter
+import com.example.webnovelservice.payment.domain.entity.OwnershipTokenTransaction
+import com.example.webnovelservice.user.domain.repository.UserRepository
+import com.example.webnovelservice.user.domain.entity.User
+import com.example.webnovelservice.payment.dto.request.CreateTokenTransactionRequest
 
 import spock.lang.Specification
 
