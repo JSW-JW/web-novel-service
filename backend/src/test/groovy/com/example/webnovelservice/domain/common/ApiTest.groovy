@@ -1,9 +1,9 @@
 package com.example.webnovelservice.domain.common
 
-import com.example.webnovelservice.domain.user.UserRepository
-import com.example.webnovelservice.domain.user.entity.User
-import com.example.webnovelservice.model.enums.AuthProvider
-import com.example.webnovelservice.model.enums.UserRole
+import com.example.webnovelservice.user.domain.repository.UserRepository
+import com.example.webnovelservice.user.domain.entity.User
+import com.example.webnovelservice.auth.enums.AuthProvider
+import com.example.webnovelservice.user.enums.UserRole
 import io.restassured.RestAssured
 import org.spockframework.spring.EnableSharedInjection
 import org.springframework.beans.factory.annotation.Autowired

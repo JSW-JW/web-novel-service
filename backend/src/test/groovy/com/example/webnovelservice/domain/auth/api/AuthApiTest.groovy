@@ -2,7 +2,7 @@ package com.example.webnovelservice.domain.auth.api
 
 import com.example.webnovelservice.domain.auth.steps.AuthSteps
 import com.example.webnovelservice.domain.common.ApiTest
-import com.example.webnovelservice.domain.user.UserRepository
+import com.example.webnovelservice.user.domain.repository.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 

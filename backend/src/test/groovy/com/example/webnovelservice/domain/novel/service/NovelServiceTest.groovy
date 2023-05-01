@@ -1,9 +1,9 @@
 package com.example.webnovelservice.domain.novel.service
 
 import com.example.webnovelservice.domain.common.DatabaseCleanup
-import com.example.webnovelservice.domain.novel.NovelService
-import com.example.webnovelservice.model.dto.request.CreateNovelRequest
-import com.example.webnovelservice.model.dto.response.NovelDto
+import com.example.webnovelservice.novel.domain.service.NovelService
+import com.example.webnovelservice.novel.dto.request.CreateNovelRequest
+import com.example.webnovelservice.novel.dto.response.NovelDto
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ContextConfiguration

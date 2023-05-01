@@ -3,9 +3,9 @@ package com.example.webnovelservice.domain.payment.api
 import com.example.webnovelservice.domain.common.ApiTest
 import com.example.webnovelservice.domain.novel.steps.NovelSteps
 import com.example.webnovelservice.domain.payment.steps.TokenTransactionSteps
-import com.example.webnovelservice.domain.user.UserRepository
-import com.example.webnovelservice.security.TokenProvider
-import com.example.webnovelservice.security.UserPrincipal
+import com.example.webnovelservice.user.domain.repository.UserRepository
+import com.example.webnovelservice.commons.security.TokenProvider
+import com.example.webnovelservice.commons.security.UserPrincipal
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

@@ -1,8 +1,8 @@
 package com.example.webnovelservice.domain.auth.steps
 
-import com.example.webnovelservice.domain.user.UserRepository
-import com.example.webnovelservice.model.dto.request.LoginRequest
-import com.example.webnovelservice.model.dto.request.SignUpRequest
+import com.example.webnovelservice.user.domain.repository.UserRepository
+import com.example.webnovelservice.user.dto.request.LoginRequest
+import com.example.webnovelservice.user.dto.request.SignUpRequest
 import io.restassured.RestAssured
 import io.restassured.response.ExtractableResponse
 import io.restassured.response.Response

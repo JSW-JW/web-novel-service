@@ -1,10 +1,10 @@
 package com.example.webnovelservice.domain.novel.service
 
 
-import com.example.webnovelservice.domain.novel.ChapterService
+import com.example.webnovelservice.chapter.domain.service.ChapterService
 import com.example.webnovelservice.domain.common.DatabaseCleanup
 import com.example.webnovelservice.domain.novel.steps.ChapterSteps
-import com.example.webnovelservice.exception.ResourceNotFoundException
+import com.example.webnovelservice.commons.response.exception.ResourceNotFoundException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ContextConfiguration

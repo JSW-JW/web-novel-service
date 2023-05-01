@@ -27,4 +27,4 @@
 .gradle
 src/main/resources/application.yml
 
-out/
+/out/
