@@ -17,6 +17,10 @@ import com.example.webnovelservice.user.domain.repository.UserRepository;
 import com.example.webnovelservice.payment.dto.request.CreateTokenTransactionRequest;
 import com.example.webnovelservice.payment.dto.response.TokenTransactionDto;
 
+import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class OwnershipTokenTransactionService {
 	private final OwnershipTokenTransactionRepository ownershipTokenTransactionRepository;
@@ -36,38 +40,47 @@ public class OwnershipTokenTransactionService {
 		this.modelMapper = modelMapper;
 	}
 
+	@Transactional
 	public TokenTransactionDto chargeOwnershipToken(Long userId, CreateTokenTransactionRequest request) {
-		Long novelId = request.getNovelId();
-		Integer tokensToCharge = request.getTokensToCharge();
-		User user = userRepository.findById(userId)
-			.orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
+		OwnershipTokenTransaction transaction = null;
+		try {
+			Long novelId = request.getNovelId();
+			Integer tokensToCharge = request.getTokensToCharge();
+			User user = userRepository.findById(userId)
+				.orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
 
-		Novel novel = novelRepository.findById(userId)
-			.orElseThrow(() -> new ResourceNotFoundException("Novel", "id", novelId));
+			Novel novel = novelRepository.findById(novelId)
+				.orElseThrow(() -> new ResourceNotFoundException("Novel", "id", novelId));
 
-		OwnershipTokenTransaction ownershipTokenTransaction = new OwnershipTokenTransaction();
-		ownershipTokenTransaction.setUser(user);
+			OwnershipTokenTransaction ownershipTokenTransaction = new OwnershipTokenTransaction();
+			ownershipTokenTransaction.setUser(user);
 
-		ownershipTokenTransaction.setTokensPurchased(request.getTokensToCharge());
-		Integer price = TokenPolicyService.getPrice(request.getTokensToCharge(), novelId);
-		ownershipTokenTransaction.setPrice(price);
+			ownershipTokenTransaction.setTokensPurchased(request.getTokensToCharge());
+			Integer price = TokenPolicyService.getPrice(request.getTokensToCharge(), novelId);
+			ownershipTokenTransaction.setPrice(price);
 
-		OwnershipTokenTransaction transaction = ownershipTokenTransactionRepository.save(ownershipTokenTransaction);
+			transaction = ownershipTokenTransactionRepository.save(ownershipTokenTransaction);
 
-		Optional<NovelTokenCounter> novelTokenCounterOptional = novelTokenCounterRepository.findByUserIdAndNovelId(
-			userId, novelId);
-		NovelTokenCounter novelTokenCounter;
-		if (novelTokenCounterOptional.isPresent()) {
-			novelTokenCounter = novelTokenCounterOptional.get();
-			novelTokenCounter.setTokenCount(novelTokenCounter.getTokenCount() + tokensToCharge);
-		} else {
-			novelTokenCounter = new NovelTokenCounter();
-			novelTokenCounter.setUser(user);
-			novelTokenCounter.setNovel(novel);
-			novelTokenCounter.setTokenCount(tokensToCharge);
+			Optional<NovelTokenCounter> novelTokenCounterOptional = novelTokenCounterRepository.findByUserIdAndNovelId(
+				userId, novelId);
+			NovelTokenCounter novelTokenCounter;
+			if (novelTokenCounterOptional.isPresent()) {
+				novelTokenCounter = novelTokenCounterOptional.get();
+				novelTokenCounter.setTokenCount(novelTokenCounter.getTokenCount() + tokensToCharge);
+			} else {
+				novelTokenCounter = new NovelTokenCounter();
+				novelTokenCounter.setUser(user);
+				novelTokenCounter.setNovel(novel);
+				novelTokenCounter.setTokenCount(tokensToCharge);
+			}
+			novelTokenCounterRepository.save(novelTokenCounter);
+
+			log.info("[SUCCESS] Token transaction - user: {}", user.toString());
+			log.info("[SUCCESS] Token transaction - transaction id: {}", transaction.getId());
+
+		} catch (Exception e) {
+			log.info("[ERROR] Token transaction error: {}", e.toString());
 		}
-		novelTokenCounterRepository.save(novelTokenCounter);
-
 		return modelMapper.map(transaction, TokenTransactionDto.class);
 	}
 
