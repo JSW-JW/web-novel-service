@@ -13,6 +13,8 @@ import com.example.webnovelservice.commons.annotation.CurrentUser;
 import com.example.webnovelservice.commons.security.UserPrincipal;
 import com.example.webnovelservice.payment.domain.service.OwnershipTokenTransactionService;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import jakarta.validation.Valid;
 
 
@@ -27,6 +29,7 @@ public class TokenTransactionController {
 	}
 
 	@PostMapping
+	@SecurityRequirement(name = "Bearer Authentication")
 	@PreAuthorize("hasRole('USER')")
 	public ResponseEntity<TokenTransactionDto> createTokenTransaction(@Valid @RequestBody CreateTokenTransactionRequest request,
 		@CurrentUser UserPrincipal userPrincipal) {

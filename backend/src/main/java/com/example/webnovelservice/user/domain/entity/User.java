@@ -12,6 +12,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -20,11 +21,12 @@ import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "user", uniqueConstraints = {
         @UniqueConstraint(columnNames = "email")
@@ -59,15 +61,15 @@ public class User {
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
 
-    @OneToMany(mappedBy = "author")
+    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
     private Set<Novel> novels;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Set<Favorite> favorites;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Set<Purchase> purchases;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Set<OwnershipTokenTransaction> ownershipTokenTransaction;
 }

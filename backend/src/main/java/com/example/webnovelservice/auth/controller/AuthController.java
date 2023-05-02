@@ -23,8 +23,10 @@ import com.example.webnovelservice.user.enums.UserRole;
 import com.example.webnovelservice.commons.security.TokenProvider;
 
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
+@Slf4j
 @RequestMapping("/api/v1/auth")
 public class AuthController {
 
@@ -49,7 +51,6 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-
         // check if user exists and password match
         userService.checkUserExists(loginRequest);
 
