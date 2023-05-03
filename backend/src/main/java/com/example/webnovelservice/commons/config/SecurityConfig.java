@@ -11,6 +11,7 @@ import com.example.webnovelservice.commons.security.oauth2.OAuth2AuthenticationS
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -84,8 +85,11 @@ public class SecurityConfig implements WebMvcConfigurer {
 				"/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**", "/docs/**", "/error", "/favicon.ico",
 				"/api/v1/novels/home-best", "/api/v1/chapters/list/*")
 			.permitAll()
-			.requestMatchers("/api/v1/novels").hasRole("AUTHOR")
-			.requestMatchers("/api/v1/transactions").hasRole("USER")
+			.requestMatchers(HttpMethod.GET, "/api/v1/novels").permitAll()
+			.requestMatchers(HttpMethod.POST, "/api/v1/novels/home-best").permitAll()
+			.requestMatchers(HttpMethod.POST, "/api/v1/novels").hasRole("AUTHOR")
+			.requestMatchers(HttpMethod.PUT, "/api/v1/novels").hasRole("AUTHOR")
+			.requestMatchers( "/api/v1/transactions").hasRole("USER")
 			.requestMatchers("/api/v1/purchases").hasRole("USER")
 			.anyRequest()
 			.authenticated()

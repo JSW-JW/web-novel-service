@@ -32,3 +32,4 @@ SELECT id, 2 FROM novel WHERE id != 10;
 select * from novel;
 select * from showcase_type;
 select * from novel_showcase_type;
+
