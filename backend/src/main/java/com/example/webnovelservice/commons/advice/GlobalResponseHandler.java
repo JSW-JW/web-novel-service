@@ -46,7 +46,6 @@ public class GlobalResponseHandler extends ResponseEntityExceptionHandler {
 		ErrorResponse err = new ErrorResponse(LocalDateTime.now(), HttpStatus.BAD_REQUEST, "Invalid JSON", details);
 
 		return ResponseEntityBuilder.build(err);
-
 	}
 
 	// handleHttpMessageNotReadable : triggers when the JSON is malformed

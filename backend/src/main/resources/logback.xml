@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
+    <include resource="org/springframework/boot/logging/logback/base.xml" />
+    <springProperty scope="context" name="LOGSTASH_ENABLED" source="logging.logstash.enabled" defaultValue="false" />
 
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
@@ -7,16 +9,20 @@
         </encoder>
     </appender>
 
-    <appender name="stash" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
-        <destination>127.0.0.1:5000</destination>
+    <if condition='property("LOGSTASH_ENABLED").equalsIgnoreCase("true")'>
+        <then>
+            <appender name="stash" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+                <destination>127.0.0.1:5000</destination>
 
-        <!-- encoder is required -->
-        <encoder class="net.logstash.logback.encoder.LogstashEncoder" />
-    </appender>
+                <!-- encoder is required -->
+                <encoder class="net.logstash.logback.encoder.LogstashEncoder" />
+            </appender>
+        </then>
+    </if>
 
     <root level="INFO">
         <appender-ref ref="console"/>
-        <appender-ref ref="stash"/>
+        <appender-ref ref="stash" />
     </root>
 
 </configuration>

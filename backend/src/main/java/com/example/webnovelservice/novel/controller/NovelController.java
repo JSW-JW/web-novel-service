@@ -1,5 +1,6 @@
 package com.example.webnovelservice.novel.controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.Map;
 
+import com.example.webnovelservice.commons.response.ResponseEntityBuilder;
 import com.example.webnovelservice.novel.dto.request.CreateNovelRequest;
 import com.example.webnovelservice.novel.dto.response.NovelDto;
 import com.example.webnovelservice.novel.domain.service.NovelService;
@@ -46,8 +48,8 @@ public class NovelController {
 			showcaseTypeIds is null: all novels in showcase
 			showcaseTypeIds is not null: novels matching with the showcaseTypeIds""")
 	@PostMapping("/home-best")
-	public ResponseEntity<Map<String, List<NovelDto>>> getBestNovels(@RequestBody List<Long> showcaseTypeIds) {
+	public ResponseEntity<Object> getBestNovels(@RequestBody List<Long> showcaseTypeIds) {
 		Map<String, List<NovelDto>> novels = novelService.getNovelsByShowcaseTypes(showcaseTypeIds);
-		return ResponseEntity.ok(novels);
+		return ResponseEntityBuilder.build("Successfully retrieved home best novels", HttpStatus.OK, novels);
 	}
 }
