@@ -3,26 +3,32 @@
     <header>
       <h1>Web Novel Service</h1>
     </header>
-    <section>
+    <router-view></router-view>
+    <section v-if="$route.path === '/'">
       <h2>New Release Best</h2>
       <div class="thumbnail-container">
         <div class="thumbnail" v-if="newReleaseTop.length">
-          <img :src="newReleaseTop[0].thumbnailUrl || 'https://via.placeholder.com/150'" alt="New Release Best Novel Thumbnail" />
-          <p class="title">{{ newReleaseTop[0].title }}</p>
+          <router-link :to="`/novels/${newReleaseTop[0].id}`">
+            <img :src="newReleaseTop[0].thumbnailUrl || 'https://via.placeholder.com/150'" alt="New Release Best Novel Thumbnail" />
+            <p class="title">{{ newReleaseTop[0].title }}</p>
+          </router-link>
         </div>
       </div>
     </section>
-    <section>
+    <section v-if="$route.path === '/'">
       <h2>Best Sellers</h2>
       <div class="thumbnail-container">
         <div class="thumbnail" v-for="novel in bestSellers" :key="novel.id">
-          <img :src="novel.thumbnailUrl || 'https://via.placeholder.com/150'" alt="Best Seller Novel Thumbnail" />
-          <p class="title">{{ novel.title }}</p>
+          <router-link :to="`/novels/${novel.id}`">
+            <img :src="novel.thumbnailUrl || 'https://via.placeholder.com/150'" alt="Best Seller Novel Thumbnail" />
+            <p class="title">{{ novel.title }}</p>
+          </router-link>
         </div>
       </div>
     </section>
   </div>
 </template>
+
 
 <script>
 import axios from "axios";
@@ -38,9 +44,7 @@ export default {
   methods: {
     async fetchData() {
       try {
-        const response = await axios.post("http://localhost:8080/api/v1/novels/home-best", {
-          showcaseTypeIds: [1, 2]
-        });
+        const response = await axios.get("http://localhost:8080/api/v1/novels/home-best");
         this.newReleaseTop = response.data.data.new_release_top;
         this.bestSellers = response.data.data.best_seller;
       } catch (error) {
