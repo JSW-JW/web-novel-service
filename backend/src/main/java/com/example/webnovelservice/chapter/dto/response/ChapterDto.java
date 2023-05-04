@@ -12,15 +12,15 @@ public class ChapterDto {
 
 	private Integer order;
 	private Long novelId;
+	private String thumbnailUrl;
 
-	private String imageUrl;
-
-	public ChapterDto(Long id, String title, String contents, Integer order, Long novelId) {
+	public ChapterDto(Long id, String title, String contents, Integer order, Long novelId, String thumbnailUrl) {
 		this.id = id;
 		this.title = title;
 		this.contents = contents;
 		this.order = order;
 		this.novelId = novelId;
+		this.thumbnailUrl = thumbnailUrl;
 	}
 
 	public ChapterDto() {}

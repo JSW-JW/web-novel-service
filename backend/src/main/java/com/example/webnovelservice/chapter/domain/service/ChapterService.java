@@ -11,6 +11,7 @@ import com.example.webnovelservice.chapter.domain.entity.Chapter;
 import com.example.webnovelservice.chapter.domain.repository.ChapterRepository;
 import com.example.webnovelservice.novel.domain.repository.NovelRepository;
 import com.example.webnovelservice.novel.domain.entity.Novel;
+import com.example.webnovelservice.novel.dto.response.NovelDto;
 import com.example.webnovelservice.payment.domain.repository.PurchaseRepository;
 import com.example.webnovelservice.commons.response.exception.ResourceNotFoundException;
 import com.example.webnovelservice.chapter.dto.request.CreateChapterRequest;
@@ -41,12 +42,14 @@ public class ChapterService {
 		Novel novel = novelRepository.findById(novelId)
 			.orElseThrow(() -> new ResourceNotFoundException("Novel", "novel id", novelId));
 
+		NovelDto novelDto = modelMapper.map(novel, NovelDto.class);
+
 		List<Chapter> chapters = chapterRepository.findByNovelId(novelId);
 		List<ChapterDto> listOfChapterDto = chapters.stream()
 			.map(chapter -> modelMapper.map(chapter, ChapterDto.class))
 			.collect(Collectors.toList());
 
-		return new NovelDetailsDto(novel, listOfChapterDto);
+		return new NovelDetailsDto(novelDto, listOfChapterDto);
 	}
 
 	public ChapterDto registerChapterForNovel(CreateChapterRequest request) {

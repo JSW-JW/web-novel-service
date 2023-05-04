@@ -83,10 +83,9 @@ public class SecurityConfig implements WebMvcConfigurer {
 			.authorizeHttpRequests()
 			.requestMatchers("api/v1/auth/**", "/oauth2/**", "/",
 				"/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**", "/docs/**", "/error", "/favicon.ico",
-				"/api/v1/novels/home-best", "/api/v1/chapters/list/*")
+				"/api/v1/chapters/list/*")
 			.permitAll()
-			.requestMatchers(HttpMethod.GET, "/api/v1/novels").permitAll()
-			.requestMatchers(HttpMethod.POST, "/api/v1/novels/home-best").permitAll()
+			.requestMatchers(HttpMethod.GET, "/api/v1/novels", "/api/v1/novels/home-best").permitAll()
 			.requestMatchers(HttpMethod.POST, "/api/v1/novels").hasRole("AUTHOR")
 			.requestMatchers(HttpMethod.PUT, "/api/v1/novels").hasRole("AUTHOR")
 			.requestMatchers( "/api/v1/transactions").hasRole("USER")

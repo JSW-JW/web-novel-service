@@ -1,5 +1,6 @@
 package com.example.webnovelservice.chapter.controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.webnovelservice.chapter.dto.request.CreateChapterRequest;
 import com.example.webnovelservice.chapter.dto.response.ChapterDto;
+import com.example.webnovelservice.commons.response.ResponseEntityBuilder;
 import com.example.webnovelservice.novel.dto.response.NovelDetailsDto;
 import com.example.webnovelservice.commons.annotation.CurrentUser;
 import com.example.webnovelservice.commons.security.UserPrincipal;
@@ -25,9 +27,9 @@ public class ChapterController {
 	}
 
 	@GetMapping("/list/{novelId}")
-	public ResponseEntity<NovelDetailsDto> getNovelDetails(@PathVariable Long novelId) {
+	public ResponseEntity<Object> getNovelDetails(@PathVariable Long novelId) {
 		NovelDetailsDto novelDetails = chapterService.getNovelAndChapters(novelId);
-		return ResponseEntity.ok(novelDetails);
+		return ResponseEntityBuilder.build("Successfully retrieved novel details", HttpStatus.OK, novelDetails);
 	}
 
 	@PostMapping

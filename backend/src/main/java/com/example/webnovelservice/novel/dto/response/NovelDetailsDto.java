@@ -12,10 +12,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public class NovelDetailsDto {
-	private Novel novel;
+	private NovelDto novel;
 	private List<ChapterDto> chapters;
 
-	public NovelDetailsDto(Novel novel, List<ChapterDto> chapters) {
+	public NovelDetailsDto(NovelDto novel, List<ChapterDto> chapters) {
 		this.novel = novel;
 		this.chapters = chapters;
 	}

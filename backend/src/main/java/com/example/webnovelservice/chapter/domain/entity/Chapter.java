@@ -8,6 +8,7 @@ import com.example.webnovelservice.payment.domain.entity.Purchase;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -32,12 +33,14 @@ public class Chapter extends BaseTimeEntity {
 	@Column(name = "chapter_order")
 	private Integer order;
 
+	private String thumbnailUrl;
+
 	private String contents;
 
 	@NotNull
 	private Integer tokensRequired;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	private Novel novel;
 
 	@OneToMany(mappedBy = "chapter")
