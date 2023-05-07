@@ -1,16 +1,19 @@
 package com.example.webnovelservice.auth.controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.webnovelservice.commons.response.ResponseEntityBuilder;
 import com.example.webnovelservice.user.domain.repository.UserRepository;
 import com.example.webnovelservice.user.domain.service.UserService;
 import com.example.webnovelservice.user.domain.entity.User;
@@ -83,9 +86,20 @@ public class AuthController {
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-        User result = userRepository.save(user);
+        userRepository.save(user);
 
-        return ResponseEntity.ok("User registered successfully!");
+        // set authentication object in security contextHolder
+        Authentication authentication = authenticationManager.authenticate(
+            new UsernamePasswordAuthenticationToken(
+                signUpRequest.getEmail(),
+                signUpRequest.getPassword()
+            )
+        );
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        // return jwt token
+        String token = tokenProvider.createToken(authentication);
+        return ResponseEntityBuilder.build("User registred successfully", HttpStatus.OK, new AuthDto(token));
     }
 
 }
