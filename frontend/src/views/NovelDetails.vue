@@ -42,9 +42,6 @@ export default {
       const response = await fetch(`${this.$apiBaseUrl}/chapters/list/${novelId}`);
       const jsonResponse = await response.json();
 
-      // Check the jsonResponse
-      console.log('JSON Response:', jsonResponse);
-
       // Update the novel and chapters data properties with the fetched data
       this.novel = jsonResponse.data.novel;
       this.chapters = jsonResponse.data.chapters;
