@@ -1,26 +1,37 @@
 SET FOREIGN_KEY_CHECKS=0;
 
 ALTER TABLE novel AUTO_INCREMENT=1;
+ALTER TABLE showcase_type AUTO_INCREMENT=1;
+
 TRUNCATE TABLE showcase_type;
 TRUNCATE TABLE novel_showcase_type;
 TRUNCATE TABLE novel;
 
-INSERT INTO novel (title, last_chapter, description, genre, author_id, created_at, updated_at)
+INSERT INTO novel (title, last_chapter, description, genre, author_id, view_count, created_at, updated_at)
 VALUES
-    ('The Haunting of Hill House', 1, 'A chilling tale of terror and horror', 'horror', 1, TIMESTAMPADD(SECOND, RAND() * 1000000, NOW()), TIMESTAMPADD(SECOND, RAND() * 1000000, NOW())),
-    ('Pride and Prejudice', 1, 'A delightful romantic comedy of manners', 'romance comedy', 1, TIMESTAMPADD(SECOND, RAND() * 1000000, NOW()), TIMESTAMPADD(SECOND, RAND() * 1000000, NOW())),
-    ('The Girl on the Train', 1, 'A gripping psychological thriller', 'thriller', 1, TIMESTAMPADD(SECOND, RAND() * 1000000, NOW()), TIMESTAMPADD(SECOND, RAND() * 1000000, NOW())),
-    ('Dune', 1, 'A classic of science fiction literature', 'science fiction', 1, TIMESTAMPADD(SECOND, RAND() * 1000000, NOW()), TIMESTAMPADD(SECOND, RAND() * 1000000, NOW())),
-    ('Frankenstein', 1, 'A Gothic masterpiece of horror', 'horror', 1, TIMESTAMPADD(SECOND, RAND() * 1000000, NOW()), TIMESTAMPADD(SECOND, RAND() * 1000000, NOW())),
-    ('Sense and Sensibility', 1, 'A charming tale of love and sisterhood', 'romance comedy', 1, TIMESTAMPADD(SECOND, RAND() * 1000000, NOW()), TIMESTAMPADD(SECOND, RAND() * 1000000, NOW())),
-    ('The Silence of the Lambs', 1, 'A thrilling novel of suspense and horror', 'thriller', 1, TIMESTAMPADD(SECOND, RAND() * 1000000, NOW()), TIMESTAMPADD(SECOND, RAND() * 1000000, NOW())),
-    ('Brave New World', 1, 'A dystopian vision of the future', 'science fiction', 1, TIMESTAMPADD(SECOND, RAND() * 1000000, NOW()), TIMESTAMPADD(SECOND, RAND() * 1000000, NOW())),
-    ('Dracula', 1, 'The quintessential vampire novel', 'horror', 1, TIMESTAMPADD(SECOND, RAND() * 1000000, NOW()), TIMESTAMPADD(SECOND, RAND() * 1000000, NOW())),
-    ('Emma', 1, 'A charming tale of matchmaking and love', 'romance comedy', 1, TIMESTAMPADD(SECOND, RAND() * 1000000, NOW()), TIMESTAMPADD(SECOND, RAND() * 1000000, NOW()));
+    ('The Haunting of Hill House', 1, 'A chilling tale of terror and horror', 'horror', 1, FLOOR(RAND() * 1000), TIMESTAMPADD(SECOND, RAND() * 1000000, NOW()), TIMESTAMPADD(SECOND, RAND() * 1000000, NOW())),
+    ('Pride and Prejudice', 1, 'A delightful romantic comedy of manners', 'romance comedy', 1, FLOOR(RAND() * 1000), TIMESTAMPADD(SECOND, RAND() * 1000000, NOW()), TIMESTAMPADD(SECOND, RAND() * 1000000, NOW())),
+    ('The Girl on the Train', 1, 'A gripping psychological thriller', 'thriller', 1, FLOOR(RAND() * 1000), TIMESTAMPADD(SECOND, RAND() * 1000000, NOW()), TIMESTAMPADD(SECOND, RAND() * 1000000, NOW())),
+    ('Dune', 1, 'A classic of science fiction literature', 'science fiction', 1, FLOOR(RAND() * 1000), TIMESTAMPADD(SECOND, RAND() * 1000000, NOW()), TIMESTAMPADD(SECOND, RAND() * 1000000, NOW())),
+    ('Frankenstein', 1, 'A Gothic masterpiece of horror', 'horror', 1, FLOOR(RAND() * 1000), TIMESTAMPADD(SECOND, RAND() * 1000000, NOW()), TIMESTAMPADD(SECOND, RAND() * 1000000, NOW())),
+    ('Sense and Sensibility', 1, 'A charming tale of love and sisterhood', 'romance comedy', 1, FLOOR(RAND() * 1000), TIMESTAMPADD(SECOND, RAND() * 1000000, NOW()), TIMESTAMPADD(SECOND, RAND() * 1000000, NOW())),
+    ('The Silence of the Lambs', 1, 'A thrilling novel of suspense and horror', 'thriller', 1, FLOOR(RAND() * 1000), TIMESTAMPADD(SECOND, RAND() * 1000000, NOW()), TIMESTAMPADD(SECOND, RAND() * 1000000, NOW())),
+    ('Brave New World', 1, 'A dystopian vision of the future', 'science fiction', 1, FLOOR(RAND() * 1000), TIMESTAMPADD(SECOND, RAND() * 1000000, NOW()), TIMESTAMPADD(SECOND, RAND() * 1000000, NOW())),
+    ('Dracula', 1, 'The quintessential vampire novel', 'horror', 1, FLOOR(RAND() * 1000), TIMESTAMPADD(SECOND, RAND() * 1000000, NOW()), TIMESTAMPADD(SECOND, RAND() * 1000000, NOW())),
+    ('Emma', 1, 'A charming tale of matchmaking and love', 'romance comedy', 1, FLOOR(RAND() * 1000), TIMESTAMPADD(SECOND, RAND() * 1000000, NOW()), TIMESTAMPADD(SECOND, RAND() * 1000000, NOW())),
+    ('Mystery of the Lost City', 1, 'An exciting adventure to find the ancient city', 'adventure', FLOOR(RAND() * 5) + 1, FLOOR(RAND() * 1000), TIMESTAMPADD(SECOND, RAND() * 1000000, NOW()), TIMESTAMPADD(SECOND, RAND() * 1000000, NOW())),
+    ('Love in the Moonlight', 1, 'A romantic story set in a mystical land', 'romance', FLOOR(RAND() * 5) + 1, FLOOR(RAND() * 1000), TIMESTAMPADD(SECOND, RAND() * 1000000, NOW()), TIMESTAMPADD(SECOND, RAND() * 1000000, NOW())),
+    ('Escape from Mars', 1, 'A thrilling space adventure', 'science fiction', FLOOR(RAND() * 5) + 1, FLOOR(RAND() * 1000), TIMESTAMPADD(SECOND, RAND() * 1000000, NOW()), TIMESTAMPADD(SECOND, RAND() * 1000000, NOW())),
+    ('The Secret Cove', 1, 'A story of friendship and adventure on a mysterious island', 'adventure', FLOOR(RAND() * 5) + 1, FLOOR(RAND() * 1000), TIMESTAMPADD(SECOND, RAND() * 1000000, NOW()), TIMESTAMPADD(SECOND, RAND() * 1000000, NOW())),
+    ('The Haunted Mansion', 1, 'A chilling ghost story', 'horror', FLOOR(RAND() * 5) + 1, FLOOR(RAND() * 1000), TIMESTAMPADD(SECOND, RAND() * 1000000, NOW()), TIMESTAMPADD(SECOND, RAND() * 1000000, NOW())),
+    ('Timeless Love', 1, 'A heartwarming romance that defies time', 'romance', FLOOR(RAND() * 5) + 1, FLOOR(RAND() * 1000), TIMESTAMPADD(SECOND, RAND() * 1000000, NOW()), TIMESTAMPADD(SECOND, RAND() * 1000000, NOW())),
+    ('The Robot Uprising', 1, 'An action-packed story of a world dominated by machines', 'science fiction', FLOOR(RAND() * 5) + 1, FLOOR(RAND() * 1000), TIMESTAMPADD(SECOND, RAND() * 1000000, NOW()), TIMESTAMPADD(SECOND, RAND() * 1000000, NOW())),
+    ('The Enchanted Forest', 1, 'A magical tale of discovery and friendship', 'fantasy', FLOOR(RAND() * 5) + 1, FLOOR(RAND() * 1000), TIMESTAMPADD(SECOND, RAND() * 1000000, NOW()), TIMESTAMPADD(SECOND, RAND() * 1000000, NOW()));
 
-INSERT INTO showcase_type (list_name, list_description) VALUES
-                                                            ('new_release_top', 'New releases from top authors'),
-                                                            ('best_seller', 'Bestselling novels of all time');
+
+INSERT INTO showcase_type (name, description) VALUES
+                                                            ('pd_picked_list', 'List of novels picked by PD'),
+                                                            ('creators_picked_list', 'List of novels picked by creators');
 
 INSERT INTO chapter (title, chapter_order, thumbnail_url, contents, tokens_required, novel_id, created_at, updated_at)
 VALUES

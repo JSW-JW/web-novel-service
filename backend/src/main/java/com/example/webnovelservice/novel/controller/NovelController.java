@@ -16,6 +16,7 @@ import com.example.webnovelservice.commons.response.ResponseEntityBuilder;
 import com.example.webnovelservice.novel.domain.service.NovelService;
 import com.example.webnovelservice.novel.dto.request.CreateNovelRequest;
 import com.example.webnovelservice.novel.dto.response.NovelDto;
+import com.example.webnovelservice.novel.dto.response.ShowcaseNovelsDto;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -58,7 +59,10 @@ public class NovelController {
 			example = "1,2",
 			style = ParameterStyle.SIMPLE, explode = Explode.FALSE)
 		@RequestParam(value = "showcaseTypeIds", required = false) List<Long> ids) {
-		Map<String, List<NovelDto>> novels = novelService.getNovelsByShowcaseTypes(ids);
+		Integer numOfMostViewedNovels = 10;
+
+		// get novels of showcase type ids and most viewed ones
+		Map<String, ShowcaseNovelsDto> novels = novelService.getNovelsByShowcaseTypes(ids, numOfMostViewedNovels);
 		return ResponseEntityBuilder.build("Successfully retrieved home best novels", HttpStatus.OK, novels);
 	}
 }
