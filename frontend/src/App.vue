@@ -12,32 +12,35 @@
     <v-main>
       <div id="app">
         <router-view></router-view>
-        <section class="home-best-section" v-if="$route.path === '/'">
-          <h2>New Release Best</h2>
-          <div class="thumbnail-container">
-            <div class="thumbnail" v-if="newReleaseTop.length">
-              <router-link :to="`/novels/${newReleaseTop[0].id}`">
-                <img :src="newReleaseTop[0].thumbnailUrl || 'https://via.placeholder.com/150'" alt="New Release Best Novel Thumbnail" />
-                <p class="title">{{ newReleaseTop[0].title }}</p>
-              </router-link>
+        <template v-for="sectionType in bestSectionTypes">
+          <section
+              class="home-best-section"
+              v-if="$route.path === '/'"
+              :key="sectionType.title"
+          >
+            <h2>{{ sectionType.title }}</h2>
+            <div class="thumbnail-container">
+              <div
+                  class="thumbnail"
+                  v-for="novel in sectionType.novels"
+                  :key="novel.id"
+              >
+                <router-link :to="`/novels/${novel.id}`">
+                  <img
+                      :src="novel.thumbnailUrl || 'https://via.placeholder.com/150'"
+                      :alt="`${sectionType.title} Novel Thumbnail`"
+                  />
+                  <p class="title">{{ novel.title }}</p>
+                </router-link>
+              </div>
             </div>
-          </div>
-        </section>
-        <section class="home-best-section" v-if="$route.path === '/'">
-          <h2>Best Sellers</h2>
-          <div class="thumbnail-container">
-            <div class="thumbnail" v-for="novel in bestSellers" :key="novel.id">
-              <router-link :to="`/novels/${novel.id}`">
-                <img :src="novel.thumbnailUrl || 'https://via.placeholder.com/150'" alt="Best Seller Novel Thumbnail" />
-                <p class="title">{{ novel.title }}</p>
-              </router-link>
-            </div>
-          </div>
-        </section>
+          </section>
+        </template>
       </div>
     </v-main>
   </v-app>
 </template>
+
 
 <script>
 import axios from "axios";
@@ -46,16 +49,30 @@ export default {
   name: "App",
   data() {
     return {
-      bestSellers: [],
-      newReleaseTop: [],
+      bestSectionTypes: [],
     };
   },
   methods: {
+    mapSectionType(title, novels) {
+      return { title, novels };
+    },
+
+    getTitle(fieldName, data) {
+      return data[fieldName].title;
+    },
+
     async fetchData() {
       try {
-        const response = await axios.get("http://localhost:8080/api/v1/novels/home-best");
-        this.newReleaseTop = response.data.data.new_release_top;
-        this.bestSellers = response.data.data.best_seller;
+        const response = await axios.get(
+            "http://localhost:8080/api/v1/novels/home-best"
+        );
+        const data = response.data.data;
+
+        for (const key in data) {
+          const title = this.getTitle(key, data);
+          this.bestSectionTypes.push(this.mapSectionType(title, data[key].novels));
+        }
+        console.log(this.bestSectionTypes);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -65,4 +82,5 @@ export default {
     this.fetchData();
   },
 };
+
 </script>
