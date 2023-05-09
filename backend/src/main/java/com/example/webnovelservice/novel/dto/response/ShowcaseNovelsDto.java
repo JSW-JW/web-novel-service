@@ -1,5 +1,7 @@
 package com.example.webnovelservice.novel.dto.response;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,13 +11,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class NovelDto {
-	private Long id;
+public class ShowcaseNovelsDto {
 	private String title;
-
-	private String thumbnailUrl;
-	private String genre;
-	private String description;
+	private List<NovelDto> novels;
 }
-
-

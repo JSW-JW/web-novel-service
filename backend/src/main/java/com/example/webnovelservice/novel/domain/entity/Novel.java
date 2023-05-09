@@ -42,6 +42,8 @@ public class Novel extends BaseTimeEntity {
 
 	private String genre;
 
+	private Long viewCount = 0L;
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	private User author;
 

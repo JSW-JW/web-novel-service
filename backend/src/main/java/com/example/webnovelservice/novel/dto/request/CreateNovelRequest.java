@@ -3,11 +3,15 @@ package com.example.webnovelservice.novel.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class CreateNovelRequest
  {
 	 @NotBlank(message = "Title is required")
@@ -18,12 +22,4 @@ public class CreateNovelRequest
 	 private String genre;
 	 @NotNull(message = "Author ID is required")
 	 private Long authorId;
-	 public CreateNovelRequest(String title, String description, String genre, Long authorId) {
-		 this.title = title;
-		 this.description = description;
-		 this.genre = genre;
-		 this.authorId = authorId;
-	 }
-
-	 public CreateNovelRequest() {}
 }

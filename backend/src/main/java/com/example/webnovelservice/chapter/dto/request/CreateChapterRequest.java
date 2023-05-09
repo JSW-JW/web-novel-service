@@ -1,10 +1,14 @@
 package com.example.webnovelservice.chapter.dto.request;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public final class CreateChapterRequest {
 	private Long novelId;
 	private String title;
@@ -12,13 +16,4 @@ public final class CreateChapterRequest {
 
 	private Integer tokensRequired;
 	private Integer order;
-
-	public CreateChapterRequest(Long novelId, String title, String contents, Integer tokensRequired) {
-		this.novelId = novelId;
-		this.title = title;
-		this.contents = contents;
-		this.tokensRequired = tokensRequired;
-	}
-
-	public CreateChapterRequest() {}
 }
