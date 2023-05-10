@@ -1,5 +1,6 @@
 package com.example.webnovelservice.novel.domain.entity;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import com.example.webnovelservice.chapter.domain.entity.Chapter;
@@ -27,22 +28,25 @@ import lombok.ToString;
 @Table(name = "novel")
 @Getter
 @Setter
-@ToString
 public class Novel extends BaseTimeEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
 	private String title;
 
-	private Integer lastChapter;
-
+	private Integer chapterCount;
 	@Lob
 	private String description;
 
-	private String genre;
-
 	private Long viewCount = 0L;
+
+	@ManyToMany
+	@JoinTable(
+		name = "Novel_Genre",
+		joinColumns = { @JoinColumn(name = "novel_id") },
+		inverseJoinColumns = { @JoinColumn(name = "genre_id") }
+	)
+	private Set<Genre> genres = new HashSet<>();
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	private User author;

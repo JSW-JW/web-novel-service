@@ -26,11 +26,13 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-@Data
+
 @Entity
 @Table(name = "user", uniqueConstraints = {
         @UniqueConstraint(columnNames = "email")
 })
+@Getter
+@Setter
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
