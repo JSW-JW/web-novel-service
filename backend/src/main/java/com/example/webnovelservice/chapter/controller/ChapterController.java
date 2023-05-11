@@ -29,7 +29,7 @@ public class ChapterController {
 	@GetMapping("/list/{novelId}")
 	public ResponseEntity<Object> getNovelDetails(@PathVariable Long novelId) {
 		NovelDetailsDto novelDetails = chapterService.getNovelAndChapters(novelId);
-		return ResponseEntityBuilder.build("Successfully retrieved novel details", HttpStatus.OK, novelDetails);
+		return ResponseEntityBuilder.build(HttpStatus.OK, "200 000", novelDetails);
 	}
 
 	@PostMapping

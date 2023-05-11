@@ -1,6 +1,12 @@
 package com.example.webnovelservice.novel.dto.request;
 
 
+import java.util.Set;
+
+import org.springframework.web.multipart.MultipartFile;
+
+import com.example.webnovelservice.novel.domain.entity.Genre;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -18,8 +24,8 @@ public class CreateNovelRequest
 	 private String title;
 	 @NotBlank(message = "Description is required")
 	 private String description;
-	 @NotBlank(message = "Genre is required")
-	 private String genre;
-	 @NotNull(message = "Author ID is required")
-	 private Long authorId;
+	 @NotNull(message = "Genres are required")
+	 private Set<Long> genreIds;
+
+	 private MultipartFile file;
 }

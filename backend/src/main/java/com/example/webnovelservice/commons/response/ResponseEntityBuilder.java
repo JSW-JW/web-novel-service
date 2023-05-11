@@ -12,10 +12,9 @@ public class ResponseEntityBuilder {
 		return new ResponseEntity<>(errorResponse, errorResponse.getStatus());
 	}
 
-	public static ResponseEntity<Object> build(String message, HttpStatus status, Object responseObject) {
+	public static ResponseEntity<Object> build(HttpStatus status, String code, Object responseObject) {
 		Map<String, Object> response = new HashMap<>();
-		response.put("message", message);
-		response.put("status", status);
+		response.put("code", code);
 		response.put("data", responseObject);
 
 		return new ResponseEntity<>(response, status);

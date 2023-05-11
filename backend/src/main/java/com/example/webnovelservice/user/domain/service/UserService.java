@@ -1,5 +1,6 @@
 package com.example.webnovelservice.user.domain.service;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -7,26 +8,23 @@ import com.example.webnovelservice.user.domain.repository.UserRepository;
 import com.example.webnovelservice.user.domain.entity.User;
 import com.example.webnovelservice.commons.response.exception.ResourceNotFoundException;
 import com.example.webnovelservice.user.dto.request.LoginRequest;
+import com.example.webnovelservice.user.dto.response.UserDto;
 
 @Service
 public class UserService {
 
 	private final UserRepository userRepository;
-	private final PasswordEncoder passwordEncoder;
+	private final ModelMapper modelMapper;
 
-	public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+	public UserService(UserRepository userRepository, ModelMapper modelMapper) {
 		this.userRepository = userRepository;
-		this.passwordEncoder = passwordEncoder;
+		this.modelMapper = modelMapper;
 	}
 
-
-	public void checkUserExists(LoginRequest loginRequest) {
-		User user = userRepository.findByEmail(loginRequest.getEmail())
+	public UserDto checkUserExists(Long userId) {
+		User user = userRepository.findById(userId)
 			.orElseThrow(() -> new ResourceNotFoundException("User with the email not found"));
 
-		boolean isPasswordMatched = passwordEncoder.matches(loginRequest.getPassword(), user.getPassword());
-		if (!isPasswordMatched) {
-			throw new ResourceNotFoundException("User with the password not found");
-		}
+		return modelMapper.map(user, UserDto.class);
 	}
 }

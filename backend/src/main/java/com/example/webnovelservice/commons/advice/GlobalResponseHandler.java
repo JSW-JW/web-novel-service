@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
@@ -94,6 +95,20 @@ public class GlobalResponseHandler extends ResponseEntityExceptionHandler {
 		return ResponseEntityBuilder.build(err);
 	}
 
+	// handleMaxUploadSizeExceededException: triggers when exceeded max file size
+	@ExceptionHandler(MaxUploadSizeExceededException.class)
+	protected ResponseEntity<Object> handleMaxUploadSizeExceededException(
+		MaxUploadSizeExceededException ex) {
+
+		List<String> details = new ArrayList<String>();
+		details.add(ex.getMessage());
+
+		ErrorResponse err = new ErrorResponse(LocalDateTime.now(), HttpStatus.BAD_REQUEST, "Exceeded Max File Size",
+			details);
+
+		return ResponseEntityBuilder.build(err);
+	}
+
 	// handleMethodArgumentTypeMismatch : triggers when a parameter's type does not match
 	@ExceptionHandler(MethodArgumentTypeMismatchException.class)
 	protected ResponseEntity<Object> handleMethodArgumentTypeMismatch(MethodArgumentTypeMismatchException ex,
@@ -108,7 +123,7 @@ public class GlobalResponseHandler extends ResponseEntityExceptionHandler {
 
 	// handleConstraintViolationException : triggers when @Validated fails
 	@ExceptionHandler(ConstraintViolationException.class)
-	public ResponseEntity<?> handleConstraintViolationException(Exception ex, WebRequest request) {
+	public ResponseEntity<Object> handleConstraintViolationException(Exception ex, WebRequest request) {
 
 		List<String> details = new ArrayList<String>();
 		details.add(ex.getMessage());

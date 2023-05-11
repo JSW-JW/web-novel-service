@@ -75,7 +75,7 @@ public class OwnershipTokenTransactionService {
 			}
 			novelTokenCounterRepository.save(novelTokenCounter);
 
-			log.info("[SUCCESS] Token transaction - user: {}", user.toString());
+			log.info("[SUCCESS] Token transaction - user: {}", user.getEmail());
 			log.info("[SUCCESS] Token transaction - transaction id: {}", transaction.getId());
 
 		} catch (Exception e) {
