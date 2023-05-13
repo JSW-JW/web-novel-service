@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
@@ -25,7 +24,7 @@ import com.example.webnovelservice.commons.response.ErrorResponse;
 import com.example.webnovelservice.commons.response.ResponseEntityBuilder;
 import com.example.webnovelservice.commons.response.exception.ResourceNotFoundException;
 
-import jakarta.validation.ConstraintViolationException;
+import javax.validation.ConstraintViolationException;
 
 @ControllerAdvice
 public class GlobalResponseHandler extends ResponseEntityExceptionHandler {
@@ -33,7 +32,7 @@ public class GlobalResponseHandler extends ResponseEntityExceptionHandler {
 	// handleHttpMediaTypeNotSupported : triggers when the JSON is invalid
 	@Override
 	protected ResponseEntity<Object> handleHttpMediaTypeNotSupported(HttpMediaTypeNotSupportedException ex,
-		HttpHeaders headers, HttpStatusCode status, WebRequest request) {
+		HttpHeaders headers, HttpStatus status, WebRequest request) {
 
 		List<String> details = new ArrayList<String>();
 
@@ -52,7 +51,7 @@ public class GlobalResponseHandler extends ResponseEntityExceptionHandler {
 	// handleHttpMessageNotReadable : triggers when the JSON is malformed
 	@Override
 	protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex,
-		HttpHeaders headers, HttpStatusCode status, WebRequest request) {
+		HttpHeaders headers, HttpStatus status, WebRequest request) {
 
 		List<String> details = new ArrayList<String>();
 		details.add(ex.getMessage());
@@ -66,7 +65,7 @@ public class GlobalResponseHandler extends ResponseEntityExceptionHandler {
 	// handleMethodArgumentNotValid : triggers when @Valid fails
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
-		HttpHeaders headers, HttpStatusCode status, WebRequest request) {
+		HttpHeaders headers, HttpStatus status, WebRequest request) {
 
 		List<String> details = new ArrayList<String>();
 		details = ex.getBindingResult()
@@ -84,7 +83,7 @@ public class GlobalResponseHandler extends ResponseEntityExceptionHandler {
 	// handleMissingServletRequestParameter : triggers when there are missing parameters
 	@Override
 	protected ResponseEntity<Object> handleMissingServletRequestParameter(MissingServletRequestParameterException ex,
-		HttpHeaders headers, HttpStatusCode status, WebRequest request) {
+		HttpHeaders headers, HttpStatus status, WebRequest request) {
 
 		List<String> details = new ArrayList<String>();
 		details.add(ex.getParameterName() + " parameter is missing");
@@ -149,7 +148,7 @@ public class GlobalResponseHandler extends ResponseEntityExceptionHandler {
 	// handleNoHandlerFoundException : triggers when the handler method is invalid
 	@Override
 	protected ResponseEntity<Object> handleNoHandlerFoundException(NoHandlerFoundException ex, HttpHeaders headers,
-		HttpStatusCode status, WebRequest request) {
+		HttpStatus status, WebRequest request) {
 
 		List<String> details = new ArrayList<String>();
 		details.add(String.format("Could not find the %s method for URL %s", ex.getHttpMethod(), ex.getRequestURL()));

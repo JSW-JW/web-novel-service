@@ -5,10 +5,8 @@ import java.util.Set;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.webnovelservice.novel.domain.entity.Genre;
-
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

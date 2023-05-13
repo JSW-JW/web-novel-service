@@ -22,7 +22,11 @@
 
     <root level="INFO">
         <appender-ref ref="console"/>
-        <appender-ref ref="stash" />
+        <if condition='property("LOGSTASH_ENABLED").equalsIgnoreCase("true")'>
+            <then>
+                <appender-ref ref="stash" />
+            </then>
+        </if>
     </root>
 
 </configuration>

@@ -13,7 +13,7 @@ import com.example.webnovelservice.commons.annotation.CurrentUser;
 import com.example.webnovelservice.commons.security.UserPrincipal;
 import com.example.webnovelservice.payment.domain.service.PurchaseService;
 
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v1/purchases")

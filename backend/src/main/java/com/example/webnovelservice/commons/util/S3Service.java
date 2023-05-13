@@ -5,12 +5,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Objects;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.amazonaws.services.s3.AmazonS3Client;
-import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 
 @Service
@@ -18,10 +18,10 @@ public class S3Service {
 
 	@Value("${cloud.aws.s3.bucket}")
 	private String bucketName;
-	private AmazonS3Client s3Client;
+	private AmazonS3 s3Client;
 
 	private static final String FILE_EXTENSION_SEPARATOR = ".";
-	public S3Service(AmazonS3Client s3Client) {
+	public S3Service(@Qualifier("S3Client") AmazonS3 s3Client) {
 		this.s3Client = s3Client;
 	}
 

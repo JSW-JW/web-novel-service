@@ -1,5 +1,7 @@
 package com.example.webnovelservice.auth.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -9,12 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.webnovelservice.auth.domain.service.AuthService;
 import com.example.webnovelservice.auth.dto.response.AuthDto;
-import com.example.webnovelservice.auth.exception.UserNotFoundException;
 import com.example.webnovelservice.commons.response.ResponseEntityBuilder;
 import com.example.webnovelservice.user.dto.request.LoginRequest;
 import com.example.webnovelservice.user.dto.request.SignUpRequest;
 
-import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController

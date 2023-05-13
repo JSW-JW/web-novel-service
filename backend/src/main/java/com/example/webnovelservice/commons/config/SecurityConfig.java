@@ -14,7 +14,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -26,7 +25,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity(securedEnabled = true, jsr250Enabled = true)
+// @EnableMethodSecurity(securedEnabled = true, jsr250Enabled = true)
 public class SecurityConfig implements WebMvcConfigurer {
 	private final CustomOAuth2UserService customOAuth2UserService;
 	private final OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
@@ -80,16 +79,16 @@ public class SecurityConfig implements WebMvcConfigurer {
 			.exceptionHandling()
 			.authenticationEntryPoint(new RestAuthenticationEntryPoint())
 			.and()
-			.authorizeHttpRequests()
-			.requestMatchers("api/v1/auth/**", "/oauth2/**", "/",
+			.authorizeRequests()
+			.antMatchers("/api/v1/auth/**", "/oauth2/**", "/", "/health",
 				"/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**", "/docs/**", "/error", "/favicon.ico",
 				"/api/v1/chapters/list/*")
 			.permitAll()
-			.requestMatchers(HttpMethod.GET, "/api/v1/novels", "/api/v1/novels/home-best").permitAll()
-			.requestMatchers(HttpMethod.POST, "/api/v1/novels").hasRole("USER")
-			.requestMatchers(HttpMethod.PUT, "/api/v1/novels").hasRole("USER")
-			.requestMatchers( "/api/v1/transactions").hasRole("USER")
-			.requestMatchers("/api/v1/purchases").hasRole("USER")
+			.antMatchers(HttpMethod.GET, "/api/v1/novels", "/api/v1/novels/home-best").permitAll()
+			.antMatchers(HttpMethod.POST, "/api/v1/novels").hasRole("USER")
+			.antMatchers(HttpMethod.PUT, "/api/v1/novels").hasRole("USER")
+			.antMatchers( "/api/v1/transactions").hasRole("USER")
+			.antMatchers("/api/v1/purchases").hasRole("USER")
 			.anyRequest()
 			.authenticated()
 			.and()

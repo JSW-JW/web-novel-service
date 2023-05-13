@@ -15,7 +15,7 @@ import com.example.webnovelservice.payment.domain.service.OwnershipTokenTransact
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 
 
 @RestController
