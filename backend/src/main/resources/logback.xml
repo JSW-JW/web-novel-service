@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/base.xml" />
+    <springProperty scope="context" name="LOGSTASH_ENABLED" source="logging.logstash.enabled" defaultValue="false" />
+
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%-5level %d{HH:mm:ss.SSS} [%thread] %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <if condition='property("LOGSTASH_ENABLED").equalsIgnoreCase("true")'>
+        <then>
+            <appender name="stash" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+                <destination>127.0.0.1:5000</destination>
+
+                <!-- encoder is required -->
+                <encoder class="net.logstash.logback.encoder.LogstashEncoder" />
+            </appender>
+        </then>
+    </if>
+
+    <root level="INFO">
+        <appender-ref ref="console"/>
+        <if condition='property("LOGSTASH_ENABLED").equalsIgnoreCase("true")'>
+            <then>
+                <appender-ref ref="stash" />
+            </then>
+        </if>
+    </root>
+
+</configuration>
