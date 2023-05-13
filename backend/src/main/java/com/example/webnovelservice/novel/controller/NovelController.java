@@ -54,10 +54,11 @@ public class NovelController {
 		return ResponseEntity.ok(novelDtos);
 	}
 
-	@Operation(summary = "get list of novels by showcaseType ids", description = """
-		showcaseTypeIds is null - all novels in showcase <br>
-		showcaseTypeIds is not null - novels matching with the showcaseTypeIds
-		""")
+	@Operation(summary = "get list of novels by showcaseType ids", description =
+		"showcaseTypeIds is null - all novels in showcase <br>"
+			+ "showcaseTypeIds is not null - novels matching with the showcaseTypeIds"
+			+ "top_viewed is returned by default"
+		)
 	@GetMapping("/home-best")
 	public ResponseEntity<Object> getBestNovels(
 		@Parameter(description = "Comma separated integer values for expected showcaseType id", example = "1,2", style = ParameterStyle.SIMPLE, explode = Explode.FALSE) @RequestParam(value = "showcaseTypeIds", required = false) List<Long> ids) {

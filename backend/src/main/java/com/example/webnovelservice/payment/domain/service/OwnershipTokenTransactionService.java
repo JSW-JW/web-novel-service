@@ -2,6 +2,8 @@ package com.example.webnovelservice.payment.domain.service;
 
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +19,6 @@ import com.example.webnovelservice.user.domain.repository.UserRepository;
 import com.example.webnovelservice.payment.dto.request.CreateTokenTransactionRequest;
 import com.example.webnovelservice.payment.dto.response.TokenTransactionDto;
 
-import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j

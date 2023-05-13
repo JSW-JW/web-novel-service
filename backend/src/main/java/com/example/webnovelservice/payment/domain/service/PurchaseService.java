@@ -16,7 +16,7 @@ import com.example.webnovelservice.user.domain.entity.User;
 import com.example.webnovelservice.chapter.domain.repository.ChapterRepository;
 import com.example.webnovelservice.user.domain.repository.UserRepository;
 
-import jakarta.transaction.Transactional;
+import javax.transaction.Transactional;
 
 @Service
 public class PurchaseService {

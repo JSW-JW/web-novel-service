@@ -1,6 +1,21 @@
 package com.example.webnovelservice.user.domain.entity;
 import java.util.Set;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
+import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+
 import com.example.webnovelservice.payment.domain.entity.Purchase;
 import com.example.webnovelservice.auth.enums.AuthProvider;
 import com.example.webnovelservice.novel.domain.entity.Novel;
@@ -8,23 +23,8 @@ import com.example.webnovelservice.payment.domain.entity.OwnershipTokenTransacti
 import com.example.webnovelservice.user.enums.UserRole;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotNull;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 
 @Entity
