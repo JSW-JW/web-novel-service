@@ -1,0 +1,7 @@
+aws:
+  secretsmanager:
+    name: web-novel-service
+cloud:
+  aws:
+    region:
+      static: ap-northeast-2
