@@ -1,14 +1,13 @@
 package com.example.webnovelservice.commons.properties;
 
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.security.Keys;
-import javax.annotation.PostConstruct;
-
-import org.springframework.boot.context.properties.ConfigurationProperties;
-
 import java.security.Key;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.springframework.boot.context.properties.ConfigurationProperties;
+
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 
 @ConfigurationProperties(prefix = "app")
 public class AppProperties {
