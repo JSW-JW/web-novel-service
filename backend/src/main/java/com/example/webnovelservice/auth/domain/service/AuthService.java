@@ -1,5 +1,7 @@
 package com.example.webnovelservice.auth.domain.service;
 
+import java.util.Optional;
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -15,6 +17,7 @@ import com.example.webnovelservice.user.domain.repository.UserRepository;
 import com.example.webnovelservice.user.dto.request.LoginRequest;
 import com.example.webnovelservice.user.dto.request.SignUpRequest;
 import com.example.webnovelservice.user.enums.UserRole;
+import com.example.webnovelservice.user.exception.RegisteredUserException;
 
 @Service
 public class AuthService {
@@ -65,7 +68,10 @@ public class AuthService {
 
 	public String registerUser(SignUpRequest signUpRequest) {
 		// check if user exists
-		this.checkIfUSerExists(signUpRequest.getEmail());
+		Optional<User> existingUser = userRepository.findByEmail(signUpRequest.getEmail());
+		if (existingUser.isPresent()) {
+			throw new RegisteredUserException("User", "user email", signUpRequest.getEmail());
+		}
 
 		// Creating user's account
 		User user = new User();
