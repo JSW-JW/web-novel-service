@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.webnovelservice.commons.annotation.CurrentUser;
 import com.example.webnovelservice.commons.response.ResponseEntityBuilder;
+import com.example.webnovelservice.commons.response.ErrorState;
 import com.example.webnovelservice.commons.security.UserPrincipal;
 import com.example.webnovelservice.novel.domain.service.NovelService;
 import com.example.webnovelservice.novel.dto.request.CreateNovelRequest;
@@ -66,6 +67,6 @@ public class NovelController {
 
 		// get novels of showcase type ids and most viewed ones
 		Map<String, ShowcaseNovelsDto> novels = novelService.getNovelsByShowcaseTypes(ids, numOfMostViewedNovels);
-		return ResponseEntityBuilder.build(HttpStatus.OK, "200 000", novels);
+		return ResponseEntityBuilder.success(HttpStatus.OK, novels);
 	}
 }

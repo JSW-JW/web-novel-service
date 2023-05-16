@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.webnovelservice.chapter.dto.request.CreateChapterRequest;
 import com.example.webnovelservice.chapter.dto.response.ChapterDto;
+import com.example.webnovelservice.commons.response.ErrorState;
 import com.example.webnovelservice.commons.response.ResponseEntityBuilder;
 import com.example.webnovelservice.novel.dto.response.NovelDetailsDto;
 import com.example.webnovelservice.commons.annotation.CurrentUser;
@@ -29,7 +30,7 @@ public class ChapterController {
 	@GetMapping("/list/{novelId}")
 	public ResponseEntity<Object> getNovelDetails(@PathVariable Long novelId) {
 		NovelDetailsDto novelDetails = chapterService.getNovelAndChapters(novelId);
-		return ResponseEntityBuilder.build(HttpStatus.OK, "200 000", novelDetails);
+		return ResponseEntityBuilder.success(HttpStatus.OK, novelDetails);
 	}
 
 	@PostMapping

@@ -22,6 +22,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import com.example.webnovelservice.commons.response.ErrorResponse;
 import com.example.webnovelservice.commons.response.ResponseEntityBuilder;
+import com.example.webnovelservice.commons.response.ErrorState;
 import com.example.webnovelservice.commons.response.exception.ResourceNotFoundException;
 
 import javax.validation.ConstraintViolationException;
@@ -43,9 +44,9 @@ public class GlobalResponseHandler extends ResponseEntityExceptionHandler {
 
 		details.add(builder.toString());
 
-		ErrorResponse err = new ErrorResponse(LocalDateTime.now(), HttpStatus.BAD_REQUEST, "Invalid JSON", details);
+		ErrorResponse err = new ErrorResponse(LocalDateTime.now(), HttpStatus.BAD_REQUEST, "Not Supported Mediatype", details);
 
-		return ResponseEntityBuilder.build(err);
+		return ResponseEntityBuilder.error(ErrorState.MEDIA_TYPE_NOT_SUPPORTED, err);
 	}
 
 	// handleHttpMessageNotReadable : triggers when the JSON is malformed
@@ -59,7 +60,7 @@ public class GlobalResponseHandler extends ResponseEntityExceptionHandler {
 		ErrorResponse err = new ErrorResponse(LocalDateTime.now(), HttpStatus.BAD_REQUEST, "Malformed JSON request",
 			details);
 
-		return ResponseEntityBuilder.build(err);
+		return ResponseEntityBuilder.error(ErrorState.HTTP_MESSAGE_NOT_READABLE, err);
 	}
 
 	// handleMethodArgumentNotValid : triggers when @Valid fails
@@ -77,7 +78,7 @@ public class GlobalResponseHandler extends ResponseEntityExceptionHandler {
 		ErrorResponse err = new ErrorResponse(LocalDateTime.now(), HttpStatus.BAD_REQUEST, "Validation Errors",
 			details);
 
-		return ResponseEntityBuilder.build(err);
+		return ResponseEntityBuilder.error(ErrorState.METHOD_ARGUMENT_NOT_VALID, err);
 	}
 
 	// handleMissingServletRequestParameter : triggers when there are missing parameters
@@ -91,7 +92,7 @@ public class GlobalResponseHandler extends ResponseEntityExceptionHandler {
 		ErrorResponse err = new ErrorResponse(LocalDateTime.now(), HttpStatus.BAD_REQUEST, "Missing Parameters",
 			details);
 
-		return ResponseEntityBuilder.build(err);
+		return ResponseEntityBuilder.error(ErrorState.MISSING_PARAMETER, err);
 	}
 
 	// handleMaxUploadSizeExceededException: triggers when exceeded max file size
@@ -105,7 +106,7 @@ public class GlobalResponseHandler extends ResponseEntityExceptionHandler {
 		ErrorResponse err = new ErrorResponse(LocalDateTime.now(), HttpStatus.BAD_REQUEST, "Exceeded Max File Size",
 			details);
 
-		return ResponseEntityBuilder.build(err);
+		return ResponseEntityBuilder.error(ErrorState.MAX_FILE_SIZE, err);
 	}
 
 	// handleMethodArgumentTypeMismatch : triggers when a parameter's type does not match
@@ -117,7 +118,7 @@ public class GlobalResponseHandler extends ResponseEntityExceptionHandler {
 
 		ErrorResponse err = new ErrorResponse(LocalDateTime.now(), HttpStatus.BAD_REQUEST, "Mismatch Type", details);
 
-		return ResponseEntityBuilder.build(err);
+		return ResponseEntityBuilder.error(ErrorState.PARAMETER_TYPE_MISMATCH, err);
 	}
 
 	// handleConstraintViolationException : triggers when @Validated fails
@@ -130,7 +131,7 @@ public class GlobalResponseHandler extends ResponseEntityExceptionHandler {
 		ErrorResponse err = new ErrorResponse(LocalDateTime.now(), HttpStatus.BAD_REQUEST, "Constraint Violation",
 			details);
 
-		return ResponseEntityBuilder.build(err);
+		return ResponseEntityBuilder.error(ErrorState.FAILED_VALIDATION, err);
 	}
 
 	// handleResourceNotFoundException : triggers when there is no resource with the specified ID in BDD
@@ -142,7 +143,7 @@ public class GlobalResponseHandler extends ResponseEntityExceptionHandler {
 
 		ErrorResponse err = new ErrorResponse(LocalDateTime.now(), HttpStatus.NOT_FOUND, "Resource Not Found", details);
 
-		return ResponseEntityBuilder.build(err);
+		return ResponseEntityBuilder.error(ErrorState.RESOURCE_NOT_FOUND, err);
 	}
 
 	// handleNoHandlerFoundException : triggers when the handler method is invalid
@@ -155,17 +156,17 @@ public class GlobalResponseHandler extends ResponseEntityExceptionHandler {
 
 		ErrorResponse err = new ErrorResponse(LocalDateTime.now(), HttpStatus.BAD_REQUEST, "Method Not Found", details);
 
-		return ResponseEntityBuilder.build(err);
+		return ResponseEntityBuilder.error(ErrorState.NO_HANDLER_FOUND, err);
 	}
 
 	@ExceptionHandler({Exception.class})
-	public ResponseEntity<Object> handleAll(Exception ex, WebRequest request) {
+	public ResponseEntity<Object> handleAll(Exception ex) {
 
 		List<String> details = new ArrayList<String>();
 		details.add(ex.getLocalizedMessage());
 
 		ErrorResponse err = new ErrorResponse(LocalDateTime.now(), HttpStatus.BAD_REQUEST, "Error occurred", details);
 
-		return ResponseEntityBuilder.build(err);
+		return ResponseEntityBuilder.error(ErrorState.COMMON_EXCEPTION, err);
 	}
 }

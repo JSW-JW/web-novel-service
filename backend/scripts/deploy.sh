@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 REPOSITORY=/home/ec2-user/web-novel-service/backend
-cd $REPOSITORY
 
 APP_NAME=web-novel-service
 JAR_NAME=$(ls $REPOSITORY/build/libs/ | grep 'SNAPSHOT.jar' | tail -n 1)
@@ -13,7 +12,7 @@ if [ -z $CURRENT_PID ]
 then
   echo "> 종료할것 없음."
 else
-  echo "> kill -9 $CURRENT_PID"
+  echo "> kill -15 $CURRENT_PID"
   kill -15 $CURRENT_PID
   sleep 5
 fi

@@ -33,13 +33,13 @@ public class AuthController {
         authService.checkIfUSerExists(loginRequest.getEmail());
 
         String token = authService.authenticateAndReturnAccessToken(loginRequest);
-        return ResponseEntityBuilder.build(HttpStatus.OK, "200 000", new AuthDto(token));
+        return ResponseEntityBuilder.success(HttpStatus.OK, new AuthDto(token));
     }
 
     @PostMapping("/signup")
     public ResponseEntity<Object> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
         String token = authService.registerUser(signUpRequest);
-        return ResponseEntityBuilder.build(HttpStatus.OK, "200 000", new AuthDto(token));
+        return ResponseEntityBuilder.success(HttpStatus.OK, new AuthDto(token));
     }
 
 }
