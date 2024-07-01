@@ -5,4 +5,5 @@
 - openapi swagger 적용
 - local cache 적용을 통한 조회 성능 개선
 - 기능 정의서를 바탕으로 API unit test, integration test 작성
+- github Issues 페이지를 통한 업무 단위 관리 
 
